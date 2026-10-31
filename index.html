@@ -25,9 +25,10 @@
     },
     "email": "mailto:marco.pasini.94@gmail.com",
     "sameAs": [
+      "https://github.com/MarPasini",
       "https://arxiv.org/search/?searchtype=author&query=Pasini%2C+M",
       "https://inspirehep.net/authors?q=Marco%20Pasini",
-      "https://cringedin.link/"
+      "https://www.linkedin.com/in/marco-pasini-1304b11b1/"
     ]
   }
   </script>
@@ -37,18 +38,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Script immediato per caricare il tema Chiaro/Scuro e la modalità Cringe senza lampeggiamenti -->
+  <!-- Script immediato per caricare il tema Chiaro/Scuro senza lampeggiamenti -->
   <script>
     (() => {
       let t;
       try { t = localStorage.getItem('theme'); } catch (e) {}
       if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       document.documentElement.dataset.theme = t;
-      try {
-        if (localStorage.getItem('cringe') === 'on') {
-          document.documentElement.dataset.cringe = 'on';
-        }
-      } catch (e) {}
     })();
   </script>
 
@@ -255,280 +251,6 @@
         opacity: 1;
         pointer-events: auto;
       }
-    }
-
-    /* =====================================================================
-       SWITCH "FEELING CRINGE?"
-       ===================================================================== */
-    .cringe {
-      position: fixed;
-      bottom: 22px;
-      right: 22px;
-      z-index: 95;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--bg-card);
-      border: 1px solid var(--line);
-      padding: 8px 14px;
-      border-radius: 999px;
-      box-shadow: var(--shadow-md);
-      cursor: pointer;
-      user-select: none;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--ink-soft);
-      transition: transform 0.2s, border-color 0.2s;
-    }
-
-    .cringe:hover {
-      transform: translateY(-2px);
-      border-color: var(--accent);
-    }
-
-    .cringe input {
-      position: absolute;
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .cringe .track {
-      width: 36px;
-      height: 20px;
-      background: var(--bg-soft);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      position: relative;
-      transition: background 0.25s, border-color 0.25s;
-    }
-
-    .cringe .knob {
-      width: 14px;
-      height: 14px;
-      background: var(--ink-mute);
-      border-radius: 50%;
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.25s;
-    }
-
-    .cringe input:checked + .track {
-      background: color-mix(in srgb, var(--accent) 22%, transparent);
-      border-color: var(--accent);
-    }
-
-    .cringe input:checked + .track .knob {
-      transform: translateX(16px);
-      background: var(--accent);
-    }
-
-    /* =====================================================================
-       MODALITÀ "STAGE" INTERATTIVA (Attiva quando "Feeling Cringe?" è ON)
-       ===================================================================== */
-    .stage {
-      display: none;
-      position: relative;
-      width: 100%;
-      height: calc(100vh - 64px);
-      min-height: 600px;
-      overflow: hidden;
-      background: radial-gradient(circle at 50% 42%, rgba(99, 102, 241, 0.16), transparent 65%), var(--bg);
-      border-bottom: 1px solid var(--line);
-      user-select: none;
-    }
-
-    html[data-cringe="on"] .stage {
-      display: block;
-    }
-
-    html[data-cringe="on"] .hero {
-      display: none;
-    }
-
-    .stage .photo {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .stage .photo img {
-      width: min(460px, 75vw);
-      height: min(460px, 75vw);
-      object-fit: cover;
-      border-radius: 32px;
-      opacity: 0.22;
-      filter: saturate(1.3) contrast(1.1);
-      border: 2px dashed var(--accent);
-      box-shadow: 0 0 80px rgba(99, 102, 241, 0.25);
-    }
-
-    .balls {
-      position: absolute;
-      inset: 0;
-      z-index: 5;
-      pointer-events: none;
-    }
-
-    .ball {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      pointer-events: auto;
-      cursor: grab;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 13.5px;
-      color: #0f172a;
-      box-shadow: inset -8px -10px 20px rgba(0, 0, 0, 0.22),
-                  inset 6px 6px 14px rgba(255, 255, 255, 0.7),
-                  0 12px 24px rgba(0, 0, 0, 0.18);
-      background: radial-gradient(circle at 32% 30%, var(--c1), var(--c2));
-      will-change: transform;
-      touch-action: none;
-      transition: box-shadow 0.2s;
-    }
-
-    .ball:active {
-      cursor: grabbing;
-    }
-
-    .ball .face {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    /* Effetti decorativi interni delle sfere */
-    .ball.fx-grating .fringes {
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 6px,
-        rgba(255, 255, 255, 0.28) 6px,
-        rgba(255, 255, 255, 0.28) 12px
-      );
-    }
-
-    .ball.fx-fizz .bub {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.55);
-      bottom: calc(15% + var(--k) * 11%);
-      left: calc(20% + (var(--k) * 17%) % 60%);
-      animation: floatBub 2.4s infinite ease-in-out;
-      animation-delay: calc(var(--k) * 0.3s);
-    }
-
-    @keyframes floatBub {
-      0%, 100% { transform: translateY(0) scale(0.9); opacity: 0.5; }
-      50% { transform: translateY(-10px) scale(1.15); opacity: 0.9; }
-    }
-
-    .ball.fx-saturn .ring {
-      position: absolute;
-      inset: -14px;
-      border: 4px solid rgba(196, 164, 115, 0.65);
-      border-radius: 50%;
-      transform: rotateX(70deg) rotateY(15deg);
-      pointer-events: none;
-    }
-
-    .ball span {
-      position: relative;
-      z-index: 2;
-      background: rgba(255, 255, 255, 0.78);
-      backdrop-filter: blur(4px);
-      padding: 3px 9px;
-      border-radius: 999px;
-      font-size: 12px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
-    }
-
-    .stage .caption {
-      position: absolute;
-      bottom: 52px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
-      text-align: center;
-      background: var(--header-bg);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--line);
-      padding: 16px 26px;
-      border-radius: 20px;
-      box-shadow: var(--shadow-md);
-      max-width: 92vw;
-    }
-
-    .stage .caption .role {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 16px;
-      color: var(--ink);
-    }
-
-    .stage .caption .aff {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13.5px;
-      color: var(--ink-mute);
-      margin-top: 4px;
-    }
-
-    .stage .caption .socials {
-      margin-top: 10px;
-      justify-content: center;
-    }
-
-    .stage .hint {
-      position: absolute;
-      top: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
-      font-size: 13px;
-      color: var(--ink-mute);
-      background: var(--bg-card);
-      border: 1px solid var(--line);
-      padding: 5px 14px;
-      border-radius: 999px;
-    }
-
-    .stage .down {
-      position: absolute;
-      bottom: 14px;
-      left: 50%;
-      transform: translateX(-50%) rotate(90deg);
-      z-index: 6;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: var(--bg-card);
-      border: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--ink-soft);
     }
 
     /* =====================================================================
@@ -1438,88 +1160,6 @@
   </header>
 
   <main data-astro-cid-hkbrpulz>
-    <!-- Interruttore "Feeling Cringe?" (Attiva le palline interattive con fisica 2D) -->
-    <label class="cringe" title="Toggle interactive physics stage!" data-astro-cid-lcdefpme>
-      <input type="checkbox" role="switch" aria-label="Feeling Cringe?" data-astro-cid-lcdefpme>
-      <span class="track" aria-hidden="true" data-astro-cid-lcdefpme><span class="knob" data-astro-cid-lcdefpme></span></span>
-      <span class="txt" data-astro-cid-lcdefpme>Feeling Cringe?</span>
-    </label>
-
-    <!-- =====================================================================
-         STAGE INTERATTIVO CON LE SFERE RIMBALZANTI (Visibile con "Feeling Cringe?")
-         ===================================================================== -->
-    <section class="stage" aria-label="Home" data-astro-cid-7dsvvxjh>
-      <picture class="photo" data-astro-cid-7dsvvxjh>
-        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=80" alt="Dr. Marco Pasini — Quantum Vacuum & Black Hole Spacetime" data-astro-cid-7dsvvxjh>
-      </picture>
-
-      <nav class="balls" aria-label="Sections" data-astro-cid-7dsvvxjh>
-        <a class="ball fx-grating" href="#research" data-s="1" data-fx="grating" style="--c1:#d9ccff;--c2:#8b6cf0" draggable="false" data-astro-cid-7dsvvxjh>
-          <i class="face" data-astro-cid-7dsvvxjh><i class="fringes" data-astro-cid-7dsvvxjh></i></i>
-          <span data-astro-cid-7dsvvxjh>Research</span>
-        </a>
-        <a class="ball fx-earth" href="#publications" data-s="0.96" data-fx="earth" style="--c1:#c6f1ff;--c2:#3fb4e0" draggable="false" data-astro-cid-7dsvvxjh>
-          <i class="face" data-astro-cid-7dsvvxjh></i>
-          <span data-astro-cid-7dsvvxjh>Publications</span>
-        </a>
-        <a class="ball fx-sun" href="#projects" data-s="0.86" data-fx="sun" style="--c1:#fff1a8;--c2:#f5a623" draggable="false" data-astro-cid-7dsvvxjh>
-          <i class="face" data-astro-cid-7dsvvxjh></i>
-          <span data-astro-cid-7dsvvxjh>Projects</span>
-        </a>
-        <a class="ball fx-atom" href="#cv" data-s="0.7" data-fx="atom" style="--c1:#ffd0c4;--c2:#ef6f55" draggable="false" data-astro-cid-7dsvvxjh>
-          <i class="face" data-astro-cid-7dsvvxjh></i>
-          <span data-astro-cid-7dsvvxjh>CV</span>
-        </a>
-        <a class="ball fx-ufo" href="#travels" data-s="0.82" data-fx="ufo" style="--c1:#cff5d6;--c2:#4cbc6d" draggable="false" data-astro-cid-7dsvvxjh>
-          <i class="face" data-astro-cid-7dsvvxjh></i>
-          <span data-astro-cid-7dsvvxjh>Travels</span>
-        </a>
-        <a class="ball fx-fizz" href="#interests" data-s="0.78" data-fx="fizz" style="--c1:#ffd3ec;--c2:#e866a8" draggable="false" data-astro-cid-7dsvvxjh>
-          <i class="face" data-astro-cid-7dsvvxjh>
-            <i class="bub" style="--k:0" data-astro-cid-7dsvvxjh></i><i class="bub" style="--k:1" data-astro-cid-7dsvvxjh></i><i class="bub" style="--k:2" data-astro-cid-7dsvvxjh></i>
-            <i class="bub" style="--k:3" data-astro-cid-7dsvvxjh></i><i class="bub" style="--k:4" data-astro-cid-7dsvvxjh></i><i class="bub" style="--k:5" data-astro-cid-7dsvvxjh></i><i class="bub" style="--k:6" data-astro-cid-7dsvvxjh></i>
-          </i>
-          <span data-astro-cid-7dsvvxjh>Interests</span>
-        </a>
-        <a class="ball fx-saturn" href="#notes" data-s="0.62" data-fx="saturn" style="--c1:#f1e6cf;--c2:#c4a473" draggable="false" data-astro-cid-7dsvvxjh>
-          <i class="face" data-astro-cid-7dsvvxjh></i>
-          <i class="ring back" data-astro-cid-7dsvvxjh></i><i class="ring front" data-astro-cid-7dsvvxjh></i>
-          <span data-astro-cid-7dsvvxjh>Notes</span>
-        </a>
-      </nav>
-
-      <!-- Didascalia centrale dello Stage Cringe -->
-      <div class="caption" data-astro-cid-7dsvvxjh>
-        <p class="role" data-astro-cid-7dsvvxjh>Dr. Marco Pasini · Physicist · Quantum Field Theory & Curved Spacetime</p>
-        <p class="aff" data-astro-cid-7dsvvxjh>
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-          University of Udine & INFN Trieste · Visiting Collaborator at Keio University
-        </p>
-        <div class="socials" data-astro-cid-7dsvvxjh>
-          <a href="https://github.com/" target="_blank" rel="noopener" data-astro-cid-7dsvvxjh>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
-            GitHub
-          </a>
-          <a href="https://arxiv.org/search/?searchtype=author&query=Pasini%2C+M" target="_blank" rel="noopener" data-astro-cid-7dsvvxjh>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8.5 8v8M12 8h2a4 4 0 0 1 0 8h-2z"/><circle cx="8.5" cy="5.6" r=".6" fill="currentColor"/></svg>
-            arXiv
-          </a>
-          <a href="mailto:marco.pasini.94@gmail.com" data-astro-cid-7dsvvxjh>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-            Email
-          </a>
-          <a href="https://cringedin.link/" target="_blank" rel="noopener" data-astro-cid-7dsvvxjh>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/><path d="M1.5 1.5 22.5 22.5M22.5 1.5 1.5 22.5" stroke-width="1"/></svg>
-            CringedIn
-          </a>
-        </div>
-      </div>
-      <p class="hint" aria-hidden="true" data-astro-cid-7dsvvxjh>Grab a ball and throw it · click one to go there</p>
-      <a class="down" href="#about" aria-label="Scroll down" data-astro-cid-7dsvvxjh>
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
-      </a>
-    </section>
-
     <!-- =====================================================================
          HERO SECTION (Intestazione principale con sfondo fotografico casuale)
          ===================================================================== -->
@@ -1564,7 +1204,7 @@
         </div>
 
         <div class="socials" data-astro-cid-lcdefpme>
-          <a href="https://github.com/" target="_blank" rel="noopener" data-astro-cid-lcdefpme>
+          <a href="https://github.com/MarPasini" target="_blank" rel="noopener" data-astro-cid-lcdefpme>
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
             GitHub
           </a>
@@ -1580,9 +1220,9 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
             Email
           </a>
-          <a href="https://cringedin.link/" target="_blank" rel="noopener" data-astro-cid-lcdefpme>
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/><path d="M1.5 1.5 22.5 22.5M22.5 1.5 1.5 22.5" stroke-width="1"/></svg>
-            CringedIn
+          <a href="https://www.linkedin.com/in/marco-pasini-1304b11b1/" target="_blank" rel="noopener" data-astro-cid-lcdefpme>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>
+            LinkedIn
           </a>
         </div>
       </div>
@@ -1734,70 +1374,56 @@
         </div>
 
         <div class="reveal" data-astro-cid-lcdefpme>
+          <!-- ARTICOLO 1: Loop Quantum Gravity Black Holes -> /2606.29307v1.pdf -->
           <article class="pub compact" data-astro-cid-fop4rpo4>
             <div class="year" data-astro-cid-fop4rpo4>2026</div>
             <div class="body" data-astro-cid-fop4rpo4>
-              <a class="title" href="#project-lqg" data-modal="lqg" data-astro-cid-fop4rpo4>
+              <a class="title" href="/2606.29307v1.pdf" target="_blank" rel="noopener" data-astro-cid-fop4rpo4>
                 Scalar Vacuum Polarization in Loop Quantum Gravity Black Holes
               </a>
               <div class="authors" data-astro-cid-fop4rpo4>A. Flachi, <strong>M. Pasini</strong></div>
               <div class="meta" data-astro-cid-fop4rpo4>
-                <em data-astro-cid-fop4rpo4>Preprint (2026) · Zenodo Dataset 20983480</em>
-                <span class="tag first" data-astro-cid-fop4rpo4>Preprint</span>
+                <em data-astro-cid-fop4rpo4>Preprint (2026) · 2606.29307v1</em>
+                <span class="tag first" data-astro-cid-fop4rpo4>PDF</span>
               </div>
             </div>
-            <a class="go" href="#project-lqg" data-modal="lqg" aria-label="Open details" data-astro-cid-fop4rpo4>
+            <a class="go" href="/2606.29307v1.pdf" target="_blank" rel="noopener" aria-label="Open PDF 2606.29307v1" title="Open 2606.29307v1.pdf" data-astro-cid-fop4rpo4>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>
             </a>
           </article>
 
-          <article class="pub compact" data-astro-cid-fop4rpo4>
-            <div class="year" data-astro-cid-fop4rpo4>2026</div>
-            <div class="body" data-astro-cid-fop4rpo4>
-              <a class="title" href="#note-casimir" data-modal="note-casimir" data-astro-cid-fop4rpo4>
-                Casimir Effect through a Perturbative Approach
-              </a>
-              <div class="authors" data-astro-cid-fop4rpo4><strong>M. Pasini</strong>, A. Flachi</div>
-              <div class="meta" data-astro-cid-fop4rpo4>
-                <em data-astro-cid-fop4rpo4>Research Manuscript in Mathematical Physics (Jan 2026)</em>
-                <span class="tag first" data-astro-cid-fop4rpo4>First author</span>
-              </div>
-            </div>
-            <a class="go" href="#note-casimir" data-modal="note-casimir" aria-label="Open details" data-astro-cid-fop4rpo4>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>
-            </a>
-          </article>
-
+          <!-- ARTICOLO 2: Symmetry Restoration & Accelerated Observers -> /JHEP05(2024)218.pdf -->
           <article class="pub compact" data-astro-cid-fop4rpo4>
             <div class="year" data-astro-cid-fop4rpo4>2024</div>
             <div class="body" data-astro-cid-fop4rpo4>
-              <a class="title" href="https://doi.org/10.1007/JHEP05(2024)218" target="_blank" rel="noopener" data-astro-cid-fop4rpo4>
+              <a class="title" href="/JHEP05(2024)218.pdf" target="_blank" rel="noopener" data-astro-cid-fop4rpo4>
                 Symmetry restoration and uniformly accelerated observers in Minkowski spacetime
               </a>
               <div class="authors" data-astro-cid-fop4rpo4>D. G. Salluce, <strong>M. Pasini</strong>, A. Flachi, A. Pittelli, S. Ansoldi</div>
               <div class="meta" data-astro-cid-fop4rpo4>
-                <em data-astro-cid-fop4rpo4>Journal of High Energy Physics (JHEP) 05 (2024), 218 · arXiv:2401.16483</em>
-                <span class="tag first" data-astro-cid-fop4rpo4>JHEP</span>
+                <em data-astro-cid-fop4rpo4>Journal of High Energy Physics · JHEP05(2024)218</em>
+                <span class="tag first" data-astro-cid-fop4rpo4>JHEP PDF</span>
               </div>
             </div>
-            <a class="go" href="https://doi.org/10.1007/JHEP05(2024)218" target="_blank" rel="noopener" aria-label="Open DOI" data-astro-cid-fop4rpo4>
+            <a class="go" href="/JHEP05(2024)218.pdf" target="_blank" rel="noopener" aria-label="Open PDF JHEP05(2024)218" title="Open JHEP05(2024)218.pdf" data-astro-cid-fop4rpo4>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>
             </a>
           </article>
 
+          <!-- ARTICOLO 3: Quantum Vacuum Effects in Non-Relativistic QFT -> /PhysRevD.108.L121702.pdf -->
           <article class="pub compact" data-astro-cid-fop4rpo4>
             <div class="year" data-astro-cid-fop4rpo4>2023</div>
             <div class="body" data-astro-cid-fop4rpo4>
-              <a class="title" href="https://doi.org/10.1103/PhysRevD.108.L121702" target="_blank" rel="noopener" data-astro-cid-fop4rpo4>
+              <a class="title" href="/PhysRevD.108.L121702.pdf" target="_blank" rel="noopener" data-astro-cid-fop4rpo4>
                 Quantum vacuum effects in nonrelativistic quantum field theory
               </a>
               <div class="authors" data-astro-cid-fop4rpo4>M. Edmonds, A. Flachi, <strong>M. Pasini</strong></div>
               <div class="meta" data-astro-cid-fop4rpo4>
-                <em data-astro-cid-fop4rpo4>Physical Review D 108 (2023), L121702 · arXiv:2309.07454</em>
-                <span class="tag first" data-astro-cid-fop4rpo4>Phys. Rev. D Letter</span>
+                <em data-astro-cid-fop4rpo4>Physical Review D · PhysRevD.108.L121702</em>
+                <span class="tag first" data-astro-cid-fop4rpo4>Phys. Rev. D PDF</span>
               </div>
             </div>
-            <a class="go" href="https://doi.org/10.1103/PhysRevD.108.L121702" target="_blank" rel="noopener" aria-label="Open DOI" data-astro-cid-fop4rpo4>
+            <a class="go" href="/PhysRevD.108.L121702.pdf" target="_blank" rel="noopener" aria-label="Open PDF PhysRevD.108.L121702" title="Open PhysRevD.108.L121702.pdf" data-astro-cid-fop4rpo4>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>
             </a>
           </article>
@@ -2115,8 +1741,11 @@
         <div class="foot-sub" data-astro-cid-hkbrpulz>Ph.D. in Theoretical Physics · University of Udine & Keio University Collaborator · Pordenone, Italy</div>
       </div>
       <div class="foot-links" data-astro-cid-hkbrpulz>
-        <a href="https://github.com/" aria-label="GitHub" target="_blank" rel="noopener" data-astro-cid-hkbrpulz>
+        <a href="https://github.com/MarPasini" aria-label="GitHub" target="_blank" rel="noopener" data-astro-cid-hkbrpulz>
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/marco-pasini-1304b11b1/" aria-label="LinkedIn" target="_blank" rel="noopener" data-astro-cid-hkbrpulz>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>
         </a>
         <a href="https://arxiv.org/search/?searchtype=author&query=Pasini%2C+M" aria-label="arXiv" target="_blank" rel="noopener" data-astro-cid-hkbrpulz>
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8.5 8v8M12 8h2a4 4 0 0 1 0 8h-2z"/><circle cx="8.5" cy="5.6" r=".6" fill="currentColor"/></svg>
@@ -2135,7 +1764,7 @@
   </footer>
 
   <!-- =====================================================================
-       JAVASCRIPT: Tema, Menu, Sfondo Casuale, Modali e Fisica 2D delle Sfere
+       JAVASCRIPT: Tema, Menu, Sfondo Casuale e Modali
        ===================================================================== -->
   <script>
     // 1. Gestione Tema Chiaro / Scuro
@@ -2187,166 +1816,7 @@
       }
     }
 
-    // 5. Switch "Feeling Cringe?" + Motore Fisico 2D per le sfere lanciabili
-    const cringeInput = document.querySelector('.cringe input');
-    const stageEl = document.querySelector('.stage');
-    const ballEls = Array.from(document.querySelectorAll('.stage .ball'));
-    let animId = null;
-    let bodies = [];
-
-    function initPhysics() {
-      if (!stageEl) return;
-      const rect = stageEl.getBoundingClientRect();
-      const W = rect.width || window.innerWidth;
-      const H = rect.height || (window.innerHeight - 64);
-
-      bodies = ballEls.map((el, i) => {
-        const scale = parseFloat(el.dataset.s || '1');
-        const radius = 55 * scale;
-        el.style.width = `${radius * 2}px`;
-        el.style.height = `${radius * 2}px`;
-        return {
-          el,
-          r: radius,
-          x: (W * 0.2) + ((i * 115) % (W * 0.65)),
-          y: 80 + (i * 45) % (H * 0.45),
-          vx: (Math.random() - 0.5) * 6,
-          vy: (Math.random() - 0.5) * 4,
-          dragging: false,
-          dragMoved: false,
-          lastX: 0,
-          lastY: 0
-        };
-      });
-
-      ballEls.forEach((el, idx) => {
-        const b = bodies[idx];
-        el.onpointerdown = (ev) => {
-          ev.preventDefault();
-          b.dragging = true;
-          b.dragMoved = false;
-          b.vx = 0;
-          b.vy = 0;
-          b.lastX = ev.clientX;
-          b.lastY = ev.clientY;
-          el.setPointerCapture(ev.pointerId);
-        };
-        el.onpointermove = (ev) => {
-          if (!b.dragging) return;
-          const dx = ev.clientX - b.lastX;
-          const dy = ev.clientY - b.lastY;
-          if (Math.abs(dx) > 3 || Math.abs(dy) > 3) b.dragMoved = true;
-          b.x += dx;
-          b.y += dy;
-          b.vx = dx * 0.85;
-          b.vy = dy * 0.85;
-          b.lastX = ev.clientX;
-          b.lastY = ev.clientY;
-        };
-        el.onpointerup = (ev) => {
-          if (!b.dragging) return;
-          b.dragging = false;
-          el.releasePointerCapture(ev.pointerId);
-          if (!b.dragMoved) {
-            const target = el.getAttribute('href');
-            if (target && target.startsWith('#')) {
-              document.querySelector(target)?.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
-        };
-        el.onclick = (ev) => ev.preventDefault();
-      });
-    }
-
-    function stepPhysics() {
-      if (rootEl.dataset.cringe !== 'on') {
-        animId = null;
-        return;
-      }
-      const rect = stageEl.getBoundingClientRect();
-      const W = rect.width;
-      const H = rect.height;
-      const gravity = 0.22;
-      const bounce = 0.78;
-      const friction = 0.994;
-
-      for (let i = 0; i < bodies.length; i++) {
-        const b = bodies[i];
-        if (!b.dragging) {
-          b.vy += gravity;
-          b.vx *= friction;
-          b.vy *= friction;
-          b.x += b.vx;
-          b.y += b.vy;
-
-          if (b.x - b.r < 0) { b.x = b.r; b.vx = Math.abs(b.vx) * bounce; }
-          if (b.x + b.r > W) { b.x = W - b.r; b.vx = -Math.abs(b.vx) * bounce; }
-          if (b.y - b.r < 0) { b.y = b.r; b.vy = Math.abs(b.vy) * bounce; }
-          if (b.y + b.r > H) {
-            b.y = H - b.r;
-            b.vy = -Math.abs(b.vy) * bounce;
-            if (Math.abs(b.vy) < 1.2) b.vy = 0;
-          }
-        }
-
-        // Collisioni tra sfere
-        for (let j = i + 1; j < bodies.length; j++) {
-          const b2 = bodies[j];
-          const dx = b2.x - b.x;
-          const dy = b2.y - b.y;
-          const dist = Math.hypot(dx, dy);
-          const minDist = b.r + b2.r;
-          if (dist > 0 && dist < minDist) {
-            const nx = dx / dist;
-            const ny = dy / dist;
-            const overlap = (minDist - dist) * 0.5;
-            if (!b.dragging) { b.x -= nx * overlap; b.y -= ny * overlap; }
-            if (!b2.dragging) { b2.x += nx * overlap; b2.y += ny * overlap; }
-            const kx = b.vx - b2.vx;
-            const ky = b.vy - b2.vy;
-            const p = 2 * (nx * kx + ny * ky) / 2;
-            if (!b.dragging) { b.vx -= p * nx * bounce; b.vy -= p * ny * bounce; }
-            if (!b2.dragging) { b2.vx += p * nx * bounce; b2.vy += p * ny * bounce; }
-          }
-        }
-
-        b.el.style.transform = `translate3d(${b.x - b.r}px, ${b.y - b.r}px, 0)`;
-      }
-
-      animId = requestAnimationFrame(stepPhysics);
-    }
-
-    function syncCringeState() {
-      const isOn = rootEl.dataset.cringe === 'on';
-      if (cringeInput) cringeInput.checked = isOn;
-      if (isOn) {
-        initPhysics();
-        if (!animId) animId = requestAnimationFrame(stepPhysics);
-      } else if (animId) {
-        cancelAnimationFrame(animId);
-        animId = null;
-      }
-    }
-
-    cringeInput?.addEventListener('change', () => {
-      const active = cringeInput.checked;
-      if (active) {
-        rootEl.dataset.cringe = 'on';
-      } else {
-        delete rootEl.dataset.cringe;
-      }
-      try { localStorage.setItem('cringe', active ? 'on' : 'off'); } catch {}
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      syncCringeState();
-    });
-
-    window.addEventListener('resize', () => {
-      if (rootEl.dataset.cringe === 'on') initPhysics();
-    });
-
-    syncCringeState();
-
-    // 6. Contenuti Dettagliati per le Finestre Modali (Progetti e Note Matematiche)
+    // 5. Contenuti Dettagliati per le Finestre Modali (Progetti e Note Matematiche)
     const modalData = {
       "lqg": {
         eyebrow: "Research Project · 2025–2026",
@@ -2360,6 +1830,7 @@
           <p>• The LQG parameter ε enhances near-horizon vacuum polarization while heavier field masses μ = mM and conformal coupling ξ = 1/6 suppress it.<br>
           • Beyond r/r<sub>s</sub> ≈ 3.5 (for ξ ≠ 1/6), ⟨φ²⟩ develops a genuine negative tail that matches within ~10% the parameter-free DeWitt–Schwinger prediction ⟨φ²⟩<sub>DS</sub> ≃ [a₂]/(16π²m²) driven by the nonzero Ricci scalar R &lt; 0.<br>
           • For astrophysical black holes (ε ≪ 1), the deviation from Schwarzschild scales linearly as O(ε), confirming the absence of anomalous exterior vacuum fluctuations.</p>
+          <div style="margin-top:18px"><a class="btn primary" href="/2606.29307v1.pdf" target="_blank" rel="noopener">Open Full Article PDF (2606.29307v1.pdf)</a></div>
         `
       },
       "rindler": {
@@ -2371,6 +1842,7 @@
           <p>While the Green's function invariance theorem of Unruh and Weiss (1984) rules out phase transitions induced solely by coordinate acceleration, several effective-potential calculations in the literature claimed symmetry restoration. We resolve this controversy by computing the one-loop effective potential V<sup>R</sup>(φ₀) in Rindler coordinates via canonical quantization in analytic A/B modes and examining two distinct renormalization schemes using <strong>covariant geodesic point-splitting</strong>:</p>
           <div class="math-formula">δm²<sub>I</sub> = δm²<sub>II</sub> + λ / (96π²ρ²) · ∂V<sup>R</sup>/∂φ₀² |<sub>φ₀=0</sub> = m²<sub>R,II</sub> / 2 &lt; 0</div>
           <p>We demonstrate that subtracting the Rindler vacuum (Scheme I) introduces a frame-dependent counter-term proportional to 1/ρ² = a² that hides an acceleration dependence inside the renormalized mass m²<sub>R,I</sub>(ρ). When a covariant, frame-independent renormalization scheme referred to the Minkowski vacuum (Scheme II, matching Christensen's curved-spacetime counter-terms in flat space) is enforced, the thermal Unruh term cancels identically against the counter-term, proving that spontaneous symmetry breaking is never restored by uniform acceleration alone.</p>
+          <div style="margin-top:18px"><a class="btn primary" href="/JHEP05(2024)218.pdf" target="_blank" rel="noopener">Open Full Article PDF (JHEP05(2024)218.pdf)</a></div>
         `
       },
       "casimir": {
@@ -2384,6 +1856,7 @@
           <p>Combining spectral asymptotics with Chowla–Selberg ζ-regularization and a physical high-frequency cutoff via Jacobi θ₃ modular functions, we derive the laboratory-frame quantum vacuum energy E<sub>s</sub> and force F<sub>s</sub> = −∂E<sub>s</sub>/∂R:</p>
           <div class="math-formula">F<sub>s</sub> ≈ −3λ / (32πR²) + mRΩ² / 4  ⇒  R<sub>crit</sub> ≈ [ 3λ / (8πmΩ²) ]<sup>1/3</sup></div>
           <p>The competition between the attractive Casimir-like interaction term (−3λ/32πR²) and the repulsive centrifugal contribution (+mRΩ²/4) produces a critical ring radius R<sub>crit</sub> where the quantum vacuum force changes sign—a phenomenon directly testable in ultracold <sup>23</sup>Na and <sup>87</sup>Rb Bose–Einstein condensate ring traps.</p>
+          <div style="margin-top:18px"><a class="btn primary" href="/PhysRevD.108.L121702.pdf" target="_blank" rel="noopener">Open Full Article PDF (PhysRevD.108.L121702.pdf)</a></div>
         `
       },
       "note-phi2": {
