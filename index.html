@@ -1,0 +1,2460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- =====================================================================
+       MODIFICA QUI: Titolo della scheda del browser e descrizione SEO
+       ===================================================================== -->
+  <title>Marco Pasini · Physicist · Quantum Field Theory & Curved Spacetime</title>
+  <meta name="description" content="I investigate quantum vacuum effects, Hawking–Unruh phenomena, and vacuum polarization in curved spacetimes and nonlinear quantum systems, combining analytical regularization schemes with high-performance numerical methods.">
+  <meta property="og:title" content="Marco Pasini · Physicist · Quantum Field Theory & Curved Spacetime">
+  <meta property="og:description" content="I investigate quantum vacuum effects, Hawking–Unruh phenomena, and vacuum polarization in curved spacetimes and nonlinear quantum systems, combining analytical regularization schemes with high-performance numerical methods.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Marco Pasini",
+    "jobTitle": "Physicist · Quantum Field Theory & Curved Spacetime",
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Department of Mathematics, Computer Science, and Physics, University of Udine"
+    },
+    "email": "mailto:marco.pasini.94@gmail.com",
+    "sameAs": [
+      "https://arxiv.org/search/?searchtype=author&query=Pasini%2C+M",
+      "https://inspirehep.net/authors?q=Marco%20Pasini",
+      "https://cringedin.link/"
+    ]
+  }
+  </script>
+  
+  <!-- Google Fonts per un look accademico moderno e pulito -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Script immediato per caricare il tema Chiaro/Scuro e la modalità Cringe senza lampeggiamenti -->
+  <script>
+    (() => {
+      let t;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+      try {
+        if (localStorage.getItem('cringe') === 'on') {
+          document.documentElement.dataset.cringe = 'on';
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <style>
+    /* =====================================================================
+       VARIABILI DI TEMA (Chiaro / Scuro) E COLORI ACCENTO
+       ===================================================================== */
+    :root {
+      --bg: #f8fafc;
+      --bg-soft: #f1f5f9;
+      --bg-card: #ffffff;
+      --ink: #0f172a;
+      --ink-soft: #334155;
+      --ink-mute: #64748b;
+      --line: #e2e8f0;
+      --accent: #4f46e5;
+      --accent-hover: #4338ca;
+      --violet: #8b5cf6;
+      --cyan: #06b6d4;
+      --amber: #f59e0b;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Space Grotesk', sans-serif;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 10px 30px -10px rgba(15, 23, 42, 0.08);
+      --header-bg: rgba(248, 250, 252, 0.82);
+    }
+
+    html[data-theme="dark"] {
+      --bg: #0b0f19;
+      --bg-soft: #151c2c;
+      --bg-card: #111726;
+      --ink: #f1f5f9;
+      --ink-soft: #cbd5e1;
+      --ink-mute: #94a3b8;
+      --line: #1e293b;
+      --accent: #818cf8;
+      --accent-hover: #a5b4fc;
+      --violet: #a78bfa;
+      --cyan: #22d3ee;
+      --amber: #fbbf24;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 12px 32px -8px rgba(0, 0, 0, 0.45);
+      --header-bg: rgba(11, 15, 25, 0.82);
+    }
+
+    /* =====================================================================
+       RESET E STILI BASE
+       ===================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* =====================================================================
+       HEADER E NAVIGAZIONE
+       ===================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--header-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .bar {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .brand .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid var(--line);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--ink-soft);
+    }
+
+    .nav a {
+      transition: color 0.2s;
+      position: relative;
+      padding: 4px 0;
+    }
+
+    .nav a:hover {
+      color: var(--accent);
+    }
+
+    .tools {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      background: var(--bg-soft);
+      border: 1px solid var(--line);
+      color: var(--ink-soft);
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .icon-btn:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    html[data-theme="dark"] .sun { display: inline-flex; }
+    html[data-theme="dark"] .moon { display: none; }
+    html:not([data-theme="dark"]) .sun { display: none; }
+    html:not([data-theme="dark"]) .moon { display: inline-flex; }
+
+    .menu-btn {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .menu-btn {
+        display: inline-flex;
+      }
+      .nav {
+        position: fixed;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: var(--bg-card);
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 24px;
+        gap: 16px;
+        transform: translateY(-120%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.25s ease, opacity 0.25s ease;
+        box-shadow: var(--shadow-md);
+      }
+      body.nav-open .nav {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    /* =====================================================================
+       SWITCH "FEELING CRINGE?"
+       ===================================================================== */
+    .cringe {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      z-index: 95;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      padding: 8px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow-md);
+      cursor: pointer;
+      user-select: none;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .cringe:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .cringe input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .cringe .track {
+      width: 36px;
+      height: 20px;
+      background: var(--bg-soft);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      position: relative;
+      transition: background 0.25s, border-color 0.25s;
+    }
+
+    .cringe .knob {
+      width: 14px;
+      height: 14px;
+      background: var(--ink-mute);
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.25s;
+    }
+
+    .cringe input:checked + .track {
+      background: color-mix(in srgb, var(--accent) 22%, transparent);
+      border-color: var(--accent);
+    }
+
+    .cringe input:checked + .track .knob {
+      transform: translateX(16px);
+      background: var(--accent);
+    }
+
+    /* =====================================================================
+       MODALITÀ "STAGE" INTERATTIVA (Attiva quando "Feeling Cringe?" è ON)
+       ===================================================================== */
+    .stage {
+      display: none;
+      position: relative;
+      width: 100%;
+      height: calc(100vh - 64px);
+      min-height: 600px;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 42%, rgba(99, 102, 241, 0.16), transparent 65%), var(--bg);
+      border-bottom: 1px solid var(--line);
+      user-select: none;
+    }
+
+    html[data-cringe="on"] .stage {
+      display: block;
+    }
+
+    html[data-cringe="on"] .hero {
+      display: none;
+    }
+
+    .stage .photo {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .stage .photo img {
+      width: min(460px, 75vw);
+      height: min(460px, 75vw);
+      object-fit: cover;
+      border-radius: 32px;
+      opacity: 0.22;
+      filter: saturate(1.3) contrast(1.1);
+      border: 2px dashed var(--accent);
+      box-shadow: 0 0 80px rgba(99, 102, 241, 0.25);
+    }
+
+    .balls {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .ball {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      pointer-events: auto;
+      cursor: grab;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 13.5px;
+      color: #0f172a;
+      box-shadow: inset -8px -10px 20px rgba(0, 0, 0, 0.22),
+                  inset 6px 6px 14px rgba(255, 255, 255, 0.7),
+                  0 12px 24px rgba(0, 0, 0, 0.18);
+      background: radial-gradient(circle at 32% 30%, var(--c1), var(--c2));
+      will-change: transform;
+      touch-action: none;
+      transition: box-shadow 0.2s;
+    }
+
+    .ball:active {
+      cursor: grabbing;
+    }
+
+    .ball .face {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    /* Effetti decorativi interni delle sfere */
+    .ball.fx-grating .fringes {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 6px,
+        rgba(255, 255, 255, 0.28) 6px,
+        rgba(255, 255, 255, 0.28) 12px
+      );
+    }
+
+    .ball.fx-fizz .bub {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.55);
+      bottom: calc(15% + var(--k) * 11%);
+      left: calc(20% + (var(--k) * 17%) % 60%);
+      animation: floatBub 2.4s infinite ease-in-out;
+      animation-delay: calc(var(--k) * 0.3s);
+    }
+
+    @keyframes floatBub {
+      0%, 100% { transform: translateY(0) scale(0.9); opacity: 0.5; }
+      50% { transform: translateY(-10px) scale(1.15); opacity: 0.9; }
+    }
+
+    .ball.fx-saturn .ring {
+      position: absolute;
+      inset: -14px;
+      border: 4px solid rgba(196, 164, 115, 0.65);
+      border-radius: 50%;
+      transform: rotateX(70deg) rotateY(15deg);
+      pointer-events: none;
+    }
+
+    .ball span {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(4px);
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    }
+
+    .stage .caption {
+      position: absolute;
+      bottom: 52px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      text-align: center;
+      background: var(--header-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--line);
+      padding: 16px 26px;
+      border-radius: 20px;
+      box-shadow: var(--shadow-md);
+      max-width: 92vw;
+    }
+
+    .stage .caption .role {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--ink);
+    }
+
+    .stage .caption .aff {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13.5px;
+      color: var(--ink-mute);
+      margin-top: 4px;
+    }
+
+    .stage .caption .socials {
+      margin-top: 10px;
+      justify-content: center;
+    }
+
+    .stage .hint {
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      font-size: 13px;
+      color: var(--ink-mute);
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      padding: 5px 14px;
+      border-radius: 999px;
+    }
+
+    .stage .down {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%) rotate(90deg);
+      z-index: 6;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-soft);
+    }
+
+    /* =====================================================================
+       HERO SECTION (Principale)
+       ===================================================================== */
+    .hero {
+      position: relative;
+      padding: 96px 0 110px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero .bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transform: scale(1.03);
+      transition: opacity 1s ease, transform 1.8s ease;
+      z-index: 0;
+    }
+
+    .hero .bg.on {
+      opacity: 0.22;
+      transform: scale(1);
+    }
+
+    html[data-theme="dark"] .hero .bg.on {
+      opacity: 0.28;
+    }
+
+    .hero .shade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--bg) 55%, transparent) 0%,
+        color-mix(in srgb, var(--bg) 82%, transparent) 70%,
+        var(--bg) 100%
+      );
+      z-index: 1;
+    }
+
+    .hero .credit {
+      position: absolute;
+      bottom: 14px;
+      right: 20px;
+      z-index: 3;
+      font-size: 11.5px;
+      color: var(--ink-mute);
+      background: color-mix(in srgb, var(--bg-card) 75%, transparent);
+      backdrop-filter: blur(6px);
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+    }
+
+    .hero .who {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .hero .avatar {
+      width: 116px;
+      height: 116px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--bg-card);
+      box-shadow: var(--shadow-md);
+      flex-shrink: 0;
+    }
+
+    .hero .name {
+      font-family: var(--font-display);
+      font-size: clamp(34px, 5.5vw, 52px);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25em;
+    }
+
+    .hero .role {
+      display: block;
+      margin-top: 8px;
+      font-size: clamp(16px, 2.2vw, 19px);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .hero .pitch {
+      font-size: clamp(18px, 2.4vw, 21px);
+      line-height: 1.55;
+      color: var(--ink-soft);
+      max-width: 680px;
+      margin-top: 12px;
+    }
+
+    .hero .aff {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      font-size: 15px;
+      color: var(--ink-mute);
+    }
+
+    .ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 14.5px;
+      border: 1px solid var(--line);
+      background: var(--bg-card);
+      color: var(--ink);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    .btn.primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      color: #ffffff;
+    }
+
+    .socials {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 18px;
+      margin-top: 28px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink-mute);
+    }
+
+    .socials a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+
+    .socials a:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding: 64px 0 84px;
+      }
+      .hero .who {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      .hero .avatar {
+        width: 92px;
+        height: 92px;
+      }
+    }
+
+    /* =====================================================================
+       CARD GENERICHE E BARRA DELLE STATISTICHE
+       ===================================================================== */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .stats-wrap {
+      margin-top: -46px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      padding: 28px 32px;
+    }
+
+    .stat {
+      border-left: 2px solid var(--line);
+      padding-left: 18px;
+    }
+
+    .stat:first-child {
+      border-left: none;
+      padding-left: 0;
+    }
+
+    .stat .v {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 3.2vw, 34px);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .stat .l {
+      font-size: 14px;
+      color: var(--ink-soft);
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    .stat .note {
+      font-size: 12px;
+      color: var(--ink-mute);
+      font-style: italic;
+      margin-top: 2px;
+    }
+
+    @media (max-width: 820px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+      .stat:nth-child(odd) {
+        border-left: none;
+        padding-left: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+      .stat {
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px solid var(--line);
+        padding-top: 16px;
+      }
+      .stat:first-child {
+        border-top: none;
+        padding-top: 0;
+      }
+    }
+
+    /* =====================================================================
+       SEZIONI GENERALI E SEZIONE "ABOUT"
+       ===================================================================== */
+    .section {
+      padding: 80px 0 0;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 3.5vw, 34px);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .about p {
+      font-size: 16.5px;
+      color: var(--ink-soft);
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+
+    .about p:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 768px) {
+      .about {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+
+    /* =====================================================================
+       GRIGLIA PROGETTI (Selected Projects)
+       ===================================================================== */
+    .section-title {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .more {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      transition: color 0.2s, transform 0.2s;
+      white-space: nowrap;
+    }
+
+    .more:hover {
+      color: var(--accent);
+      transform: translateX(3px);
+    }
+
+    .grid3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .pcard {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+    }
+
+    .pcard::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--c, var(--accent));
+      z-index: 2;
+    }
+
+    .pcard:hover {
+      transform: translateY(-6px);
+      border-color: var(--c, var(--accent));
+    }
+
+    .pcard .art {
+      position: relative;
+      height: 190px;
+      overflow: hidden;
+      background: var(--bg-soft);
+    }
+
+    .pcard .art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .pcard:hover .art img {
+      transform: scale(1.06);
+    }
+
+    .pcard .art small {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(15, 23, 42, 0.72);
+      color: #f8fafc;
+      font-size: 10.5px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      backdrop-filter: blur(4px);
+    }
+
+    .pcard .inner {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .pcard .years {
+      font-family: var(--font-display);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--ink-mute);
+    }
+
+    .pcard h3 {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 700;
+      margin-top: 6px;
+      color: var(--ink);
+      transition: color 0.2s;
+    }
+
+    .pcard:hover h3 {
+      color: var(--c, var(--accent));
+    }
+
+    .pcard p {
+      font-size: 14.5px;
+      color: var(--ink-soft);
+      margin-top: 8px;
+      flex: 1;
+    }
+
+    .facs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    .chip {
+      font-size: 11.5px;
+      font-weight: 600;
+      background: var(--bg-soft);
+      color: var(--ink-soft);
+      padding: 3px 9px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+    }
+
+    .pcard .read {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 18px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink);
+      transition: color 0.2s;
+    }
+
+    .pcard:hover .read {
+      color: var(--c, var(--accent));
+    }
+
+    @media (max-width: 900px) {
+      .grid3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* =====================================================================
+       SEZIONE SPLIT: PUBBLICAZIONI + NEWS (CSS Originale Fedele)
+       ===================================================================== */
+    .split {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .pub {
+      border-top: 1px solid var(--line);
+      grid-template-columns: 64px 1fr auto;
+      align-items: start;
+      gap: 18px;
+      padding: 20px 0;
+      display: grid;
+    }
+
+    .year {
+      font-family: var(--font-display);
+      color: var(--ink-mute);
+      padding-top: 1px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .title {
+      font-size: 17px;
+      font-weight: 600;
+      line-height: 1.4;
+      transition: color 0.2s;
+      display: inline-block;
+    }
+
+    .title:hover {
+      color: var(--accent);
+    }
+
+    .meta {
+      color: var(--ink-soft);
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 10px;
+      margin-top: 8px;
+      font-size: 14.5px;
+      display: flex;
+    }
+
+    .tag {
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: var(--bg-soft);
+      color: var(--ink-soft);
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 11.5px;
+      font-style: normal;
+      font-weight: 650;
+    }
+
+    .tag.first {
+      background: color-mix(in srgb, var(--accent) 14%, transparent);
+      color: var(--accent);
+    }
+
+    .go {
+      color: var(--ink-mute);
+      padding: 4px;
+      transition: color 0.2s;
+    }
+
+    .go:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 640px) {
+      .pub {
+        grid-template-columns: 1fr auto;
+        gap: 6px 12px;
+      }
+      .year {
+        grid-column: 1 / -1;
+        font-size: 15px;
+      }
+    }
+
+    /* Box laterale News */
+    .news {
+      padding: 28px;
+    }
+
+    .news ul {
+      list-style: none;
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .news li {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 12px;
+      font-size: 14.5px;
+      color: var(--ink-soft);
+      line-height: 1.5;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .news li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .news .d {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 14px;
+    }
+
+    /* =====================================================================
+       SEZIONI AGGIUNTIVE: NOTE MATEMATICHE, CV, VIAGGI & INTERESSI, MODALI
+       ===================================================================== */
+    .math-formula {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      background: var(--bg-soft);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-top: 12px;
+      color: var(--ink);
+      overflow-x: auto;
+      line-height: 1.5;
+    }
+
+    .cv-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 820px) {
+      .cv-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cv-box {
+      padding: 26px 28px;
+    }
+
+    .cv-box h3 {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .timeline-item {
+      border-top: 1px solid var(--line);
+      padding: 14px 0;
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .timeline-item:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .timeline-item:last-of-type {
+      padding-bottom: 0;
+    }
+
+    .timeline-item .t-yr {
+      font-family: var(--font-display);
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--accent);
+      padding-top: 2px;
+    }
+
+    .timeline-item .t-role {
+      font-weight: 600;
+      font-size: 15.5px;
+      color: var(--ink);
+    }
+
+    .timeline-item .t-place {
+      font-size: 13.5px;
+      color: var(--ink-mute);
+      margin-top: 2px;
+    }
+
+    .timeline-item .t-desc {
+      font-size: 13.8px;
+      color: var(--ink-soft);
+      margin-top: 6px;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 520px) {
+      .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+    }
+
+    /* Finestra Modale per leggere i dettagli completi di Progetti e Note */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(11, 15, 25, 0.72);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      max-width: 760px;
+      width: 100%;
+      max-height: 86vh;
+      overflow-y: auto;
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      transform: translateY(14px);
+      transition: transform 0.25s ease;
+    }
+
+    .modal-backdrop.open .modal-card {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: sticky;
+      top: 0;
+      float: right;
+      background: var(--bg-soft);
+      border: 1px solid var(--line);
+      color: var(--ink-soft);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .modal-close:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .modal-card h3 {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      margin-top: 6px;
+      margin-bottom: 14px;
+      color: var(--ink);
+    }
+
+    .modal-card p {
+      font-size: 15.5px;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    /* =====================================================================
+       FOOTER
+       ===================================================================== */
+    .site-footer {
+      margin-top: 96px;
+      border-top: 1px solid var(--line);
+      padding: 42px 0 32px;
+      background: var(--bg-soft);
+    }
+
+    .foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .foot-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .foot-sub {
+      font-size: 13.5px;
+      color: var(--ink-mute);
+      margin-top: 2px;
+    }
+
+    .foot-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .foot-links a {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-soft);
+      transition: all 0.2s;
+    }
+
+    .foot-links a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .copy {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--ink-mute);
+    }
+
+    /* =====================================================================
+       ANIMAZIONI SCROLL REVEAL
+       ===================================================================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =====================================================================
+       HEADER DEL SITO
+       ===================================================================== -->
+  <header class="site-header" data-astro-cid-hkbrpulz>
+    <div class="container bar" data-astro-cid-hkbrpulz>
+      <!-- MODIFICA QUI: Il tuo nome e la tua foto profilo in alto a sinistra -->
+      <a href="#" class="brand" aria-label="Home" data-astro-cid-hkbrpulz>
+        <img class="avatar" src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=200&q=80" onerror="this.src='https://placehold.co/132x132/4f46e5/ffffff?text=MP'" alt="Marco Pasini" width="34" height="34" data-astro-cid-hkbrpulz>
+        <span class="who" data-astro-cid-hkbrpulz>Marco Pasini</span>
+      </a>
+
+      <!-- Menu di navigazione identico all'originale -->
+      <nav class="nav" id="nav" data-astro-cid-hkbrpulz>
+        <a href="#research" data-astro-cid-hkbrpulz>Research</a>
+        <a href="#publications" data-astro-cid-hkbrpulz>Publications</a>
+        <a href="#projects" data-astro-cid-hkbrpulz>Projects</a>
+        <a href="#cv" data-astro-cid-hkbrpulz>CV</a>
+        <a href="#interests" data-astro-cid-hkbrpulz>Interests</a>
+        <a href="#travels" data-astro-cid-hkbrpulz>Travels</a>
+        <a href="#notes" data-astro-cid-hkbrpulz>Notes</a>
+      </nav>
+
+      <!-- Pulsanti Tema Chiaro/Scuro e Menu Mobile -->
+      <div class="tools" data-astro-cid-hkbrpulz>
+        <button class="icon-btn" id="theme" aria-label="Toggle dark mode" title="Toggle dark/light mode" data-astro-cid-hkbrpulz>
+          <span class="sun" data-astro-cid-hkbrpulz>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          </span>
+          <span class="moon" data-astro-cid-hkbrpulz>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z"/></svg>
+          </span>
+        </button>
+        <button class="icon-btn menu-btn" id="menu" aria-label="Menu" aria-expanded="false" data-astro-cid-hkbrpulz>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main data-astro-cid-hkbrpulz>
+    <!-- Interruttore "Feeling Cringe?" (Attiva le palline interattive con fisica 2D) -->
+    <label class="cringe" title="Toggle interactive physics stage!" data-astro-cid-lcdefpme>
+      <input type="checkbox" role="switch" aria-label="Feeling Cringe?" data-astro-cid-lcdefpme>
+      <span class="track" aria-hidden="true" data-astro-cid-lcdefpme><span class="knob" data-astro-cid-lcdefpme></span></span>
+      <span class="txt" data-astro-cid-lcdefpme>Feeling Cringe?</span>
+    </label>
+
+    <!-- =====================================================================
+         STAGE INTERATTIVO CON LE SFERE RIMBALZANTI (Visibile con "Feeling Cringe?")
+         ===================================================================== -->
+    <section class="stage" aria-label="Home" data-astro-cid-7dsvvxjh>
+      <picture class="photo" data-astro-cid-7dsvvxjh>
+        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=80" alt="Dr. Marco Pasini — Quantum Vacuum & Black Hole Spacetime" data-astro-cid-7dsvvxjh>
+      </picture>
+
+      <nav class="balls" aria-label="Sections" data-astro-cid-7dsvvxjh>
+        <a class="ball fx-grating" href="#research" data-s="1" data-fx="grating" style="--c1:#d9ccff;--c2:#8b6cf0" draggable="false" data-astro-cid-7dsvvxjh>
+          <i class="face" data-astro-cid-7dsvvxjh><i class="fringes" data-astro-cid-7dsvvxjh></i></i>
+          <span data-astro-cid-7dsvvxjh>Research</span>
+        </a>
+        <a class="ball fx-earth" href="#publications" data-s="0.96" data-fx="earth" style="--c1:#c6f1ff;--c2:#3fb4e0" draggable="false" data-astro-cid-7dsvvxjh>
+          <i class="face" data-astro-cid-7dsvvxjh></i>
+          <span data-astro-cid-7dsvvxjh>Publications</span>
+        </a>
+        <a class="ball fx-sun" href="#projects" data-s="0.86" data-fx="sun" style="--c1:#fff1a8;--c2:#f5a623" draggable="false" data-astro-cid-7dsvvxjh>
+          <i class="face" data-astro-cid-7dsvvxjh></i>
+          <span data-astro-cid-7dsvvxjh>Projects</span>
+        </a>
+        <a class="ball fx-atom" href="#cv" data-s="0.7" data-fx="atom" style="--c1:#ffd0c4;--c2:#ef6f55" draggable="false" data-astro-cid-7dsvvxjh>
+          <i class="face" data-astro-cid-7dsvvxjh></i>
+          <span data-astro-cid-7dsvvxjh>CV</span>
+        </a>
+        <a class="ball fx-ufo" href="#travels" data-s="0.82" data-fx="ufo" style="--c1:#cff5d6;--c2:#4cbc6d" draggable="false" data-astro-cid-7dsvvxjh>
+          <i class="face" data-astro-cid-7dsvvxjh></i>
+          <span data-astro-cid-7dsvvxjh>Travels</span>
+        </a>
+        <a class="ball fx-fizz" href="#interests" data-s="0.78" data-fx="fizz" style="--c1:#ffd3ec;--c2:#e866a8" draggable="false" data-astro-cid-7dsvvxjh>
+          <i class="face" data-astro-cid-7dsvvxjh>
+            <i class="bub" style="--k:0" data-astro-cid-7dsvvxjh></i><i class="bub" style="--k:1" data-astro-cid-7dsvvxjh></i><i class="bub" style="--k:2" data-astro-cid-7dsvvxjh></i>
+            <i class="bub" style="--k:3" data-astro-cid-7dsvvxjh></i><i class="bub" style="--k:4" data-astro-cid-7dsvvxjh></i><i class="bub" style="--k:5" data-astro-cid-7dsvvxjh></i><i class="bub" style="--k:6" data-astro-cid-7dsvvxjh></i>
+          </i>
+          <span data-astro-cid-7dsvvxjh>Interests</span>
+        </a>
+        <a class="ball fx-saturn" href="#notes" data-s="0.62" data-fx="saturn" style="--c1:#f1e6cf;--c2:#c4a473" draggable="false" data-astro-cid-7dsvvxjh>
+          <i class="face" data-astro-cid-7dsvvxjh></i>
+          <i class="ring back" data-astro-cid-7dsvvxjh></i><i class="ring front" data-astro-cid-7dsvvxjh></i>
+          <span data-astro-cid-7dsvvxjh>Notes</span>
+        </a>
+      </nav>
+
+      <!-- Didascalia centrale dello Stage Cringe -->
+      <div class="caption" data-astro-cid-7dsvvxjh>
+        <p class="role" data-astro-cid-7dsvvxjh>Dr. Marco Pasini · Physicist · Quantum Field Theory & Curved Spacetime</p>
+        <p class="aff" data-astro-cid-7dsvvxjh>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          University of Udine & INFN Trieste · Visiting Collaborator at Keio University
+        </p>
+        <div class="socials" data-astro-cid-7dsvvxjh>
+          <a href="https://github.com/" target="_blank" rel="noopener" data-astro-cid-7dsvvxjh>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+            GitHub
+          </a>
+          <a href="https://arxiv.org/search/?searchtype=author&query=Pasini%2C+M" target="_blank" rel="noopener" data-astro-cid-7dsvvxjh>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8.5 8v8M12 8h2a4 4 0 0 1 0 8h-2z"/><circle cx="8.5" cy="5.6" r=".6" fill="currentColor"/></svg>
+            arXiv
+          </a>
+          <a href="mailto:marco.pasini.94@gmail.com" data-astro-cid-7dsvvxjh>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            Email
+          </a>
+          <a href="https://cringedin.link/" target="_blank" rel="noopener" data-astro-cid-7dsvvxjh>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/><path d="M1.5 1.5 22.5 22.5M22.5 1.5 1.5 22.5" stroke-width="1"/></svg>
+            CringedIn
+          </a>
+        </div>
+      </div>
+      <p class="hint" aria-hidden="true" data-astro-cid-7dsvvxjh>Grab a ball and throw it · click one to go there</p>
+      <a class="down" href="#about" aria-label="Scroll down" data-astro-cid-7dsvvxjh>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
+      </a>
+    </section>
+
+    <!-- =====================================================================
+         HERO SECTION (Intestazione principale con sfondo fotografico casuale)
+         ===================================================================== -->
+    <section class="hero" data-bg='[
+      {"src":"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1920&q=80","title":"Dolomites & Alpine Peaks","artist":"Marco Pasini"},
+      {"src":"https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80","title":"Curved Spacetime & Horizons","artist":"Marco Pasini"},
+      {"src":"https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1920&q=80","title":"Tokyo & Yokohama Bay, Japan","artist":"Marco Pasini"},
+      {"src":"https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1920&q=80","title":"Snowy Morning in Friuli","artist":"Marco Pasini"}
+    ]' data-astro-cid-lcdefpme>
+      <div class="bg" aria-hidden="true" data-astro-cid-lcdefpme></div>
+      <div class="shade" aria-hidden="true" data-astro-cid-lcdefpme></div>
+      <a class="credit" target="_blank" rel="noopener" data-astro-cid-lcdefpme></a>
+
+      <div class="container hero-inner" data-astro-cid-lcdefpme>
+        <div class="who" data-astro-cid-lcdefpme>
+          <!-- MODIFICA QUI: Quando carichi la tua foto nel repository GitHub, chiamala portrait.jpg e imposta src="portrait.jpg" -->
+          <img class="avatar" src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=400&q=80" onerror="this.src='https://placehold.co/132x132/4f46e5/ffffff?text=MP'" alt="Marco Pasini" width="132" height="132" data-astro-cid-lcdefpme>
+          <div data-astro-cid-lcdefpme>
+            <h1 class="name" data-astro-cid-lcdefpme><span data-astro-cid-lcdefpme>Marco</span><span data-astro-cid-lcdefpme>Pasini</span></h1>
+            <span class="role" data-astro-cid-lcdefpme>Physicist · Quantum Field Theory & Curved Spacetime</span>
+          </div>
+        </div>
+
+        <p class="pitch" data-astro-cid-lcdefpme>
+          I investigate quantum vacuum effects, Hawking–Unruh phenomena, and vacuum polarization in curved spacetimes and nonlinear quantum systems, combining analytical regularization schemes with high-performance numerical methods.
+        </p>
+
+        <p class="aff" data-astro-cid-lcdefpme>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          Department of Mathematics, Computer Science, and Physics, University of Udine & INFN Trieste · Keio University Collaborator
+        </p>
+
+        <div class="ctas" data-astro-cid-lcdefpme>
+          <a class="btn primary" href="#research" data-astro-cid-lcdefpme>
+            Explore my research
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
+          </a>
+          <a class="btn" href="#cv" data-astro-cid-lcdefpme>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></svg>
+            CV
+          </a>
+        </div>
+
+        <div class="socials" data-astro-cid-lcdefpme>
+          <a href="https://github.com/" target="_blank" rel="noopener" data-astro-cid-lcdefpme>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+            GitHub
+          </a>
+          <a href="https://arxiv.org/search/?searchtype=author&query=Pasini%2C+M" target="_blank" rel="noopener" data-astro-cid-lcdefpme>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8.5 8v8M12 8h2a4 4 0 0 1 0 8h-2z"/><circle cx="8.5" cy="5.6" r=".6" fill="currentColor"/></svg>
+            arXiv
+          </a>
+          <a href="https://inspirehep.net/authors?q=Marco%20Pasini" target="_blank" rel="noopener" data-astro-cid-lcdefpme>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 9l10 6 10-6-10-6Z"/><path d="M6 11.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5"/></svg>
+            INSPIRE-HEP
+          </a>
+          <a href="mailto:marco.pasini.94@gmail.com" data-astro-cid-lcdefpme>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            Email
+          </a>
+          <a href="https://cringedin.link/" target="_blank" rel="noopener" data-astro-cid-lcdefpme>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/><path d="M1.5 1.5 22.5 22.5M22.5 1.5 1.5 22.5" stroke-width="1"/></svg>
+            CringedIn
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         BARRA STATISTICHE IN EVIDENZA (Identica nella struttura all'originale)
+         ===================================================================== -->
+    <section class="container stats-wrap" data-astro-cid-lcdefpme>
+      <div class="stats card reveal" data-astro-cid-lcdefpme>
+        <div class="stat" data-astro-cid-lcdefpme>
+          <div class="v" data-astro-cid-lcdefpme>110/110</div>
+          <div class="l" data-astro-cid-lcdefpme>M.Sc. cum laude & Ph.D. in Physics</div>
+        </div>
+        <div class="stat" data-astro-cid-lcdefpme>
+          <div class="v" data-astro-cid-lcdefpme>4+</div>
+          <div class="l" data-astro-cid-lcdefpme>research works & preprints in QFT</div>
+        </div>
+        <div class="stat" data-astro-cid-lcdefpme>
+          <div class="v" data-astro-cid-lcdefpme>&lt; 0.1%</div>
+          <div class="l" data-astro-cid-lcdefpme>numerical noise floor in LQG ⟨φ²⟩</div>
+          <div class="note" data-astro-cid-lcdefpme>(taming UV divergences is a thing to be proud of, right? right?)</div>
+        </div>
+        <div class="stat" data-astro-cid-lcdefpme>
+          <div class="v" data-astro-cid-lcdefpme>Level 2</div>
+          <div class="l" data-astro-cid-lcdefpme>FISI Alpine Ski Coach & Instructor</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SEZIONE BIOGRAFIA (About)
+         ===================================================================== -->
+    <section class="section container about" id="about" data-astro-cid-lcdefpme>
+      <div class="reveal" data-astro-cid-lcdefpme>
+        <span class="eyebrow" data-astro-cid-lcdefpme>About</span>
+        <h2 data-astro-cid-lcdefpme>Probing the quantum vacuum from ultracold atom rings to quantum black holes.</h2>
+      </div>
+      <div class="reveal" data-astro-cid-lcdefpme>
+        <p data-astro-cid-lcdefpme>
+          I am a theoretical and mathematical physicist (Ph.D. in Physics, University of Udine, 2025; M.Sc. in Theoretical Physics 110/110 <em>cum laude</em>, University of Trieste, 2019). My research explores quantum field theory in curved spacetime and non-relativistic nonlinear systems—focusing on the Casimir effect, the Unruh effect and spontaneous symmetry breaking, and scalar vacuum polarization ⟨φ²⟩ around Loop Quantum Gravity black holes.
+        </p>
+        <p data-astro-cid-lcdefpme>
+          Over the past years, I have collaborated internationally—including a research stay with Prof. Antonino Flachi's group at the Research and Education Center for Natural Sciences, Keio University (Yokohama, Japan), and within INFN (Sezione di Trieste). I combine analytical tools (covariant point-splitting, ζ-function and Mellin–Barnes regularization, WKB asymptotics, and Bessel/Jacobi elliptic functions) with high-performance numerical algorithms in Python, Mathematica, and Fortran.
+        </p>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SEZIONE PROGETTI DI RICERCA (Selected Projects)
+         ===================================================================== -->
+    <section class="section container" id="research" data-astro-cid-lcdefpme>
+      <div class="section-title" id="projects" data-astro-cid-lcdefpme>
+        <div data-astro-cid-lcdefpme>
+          <span class="eyebrow" data-astro-cid-lcdefpme>Research</span>
+          <h2 data-astro-cid-lcdefpme>Selected projects</h2>
+        </div>
+        <a class="more" href="#notes" data-astro-cid-lcdefpme>
+          Technical notes & derivations
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
+        </a>
+      </div>
+
+      <div class="grid3" data-astro-cid-lcdefpme>
+        <!-- Progetto 1: LQG Black Holes -->
+        <a href="#project-lqg" data-modal="lqg" class="pcard card reveal" style="--c: var(--violet); transition-delay:0ms" data-astro-cid-y2vllrex>
+          <div class="art photo" data-astro-cid-y2vllrex>
+            <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80" alt="Black Hole Quantum Geometry" loading="lazy" data-astro-cid-y2vllrex>
+            <small data-astro-cid-y2vllrex>LQG Kruskal Black Hole · CCDeW Formalism</small>
+          </div>
+          <div class="inner" data-astro-cid-y2vllrex>
+            <div class="years" data-astro-cid-y2vllrex>2025 – 2026</div>
+            <h3 data-astro-cid-y2vllrex>Vacuum polarization in LQG black holes</h3>
+            <p data-astro-cid-y2vllrex>Extended Anderson–Candelas–Christensen–DeWitt mode-sum formalism for ⟨φ²⟩ exterior to Loop Quantum Gravity Kruskal black holes</p>
+            <div class="facs" data-astro-cid-y2vllrex>
+              <span class="chip" data-astro-cid-y2vllrex>Keio University</span>
+              <span class="chip" data-astro-cid-y2vllrex>UniUd</span>
+              <span class="chip" data-astro-cid-y2vllrex>CCDeW / WKB</span>
+              <span class="chip" data-astro-cid-y2vllrex>RK4 Numerics</span>
+            </div>
+            <span class="read" data-astro-cid-y2vllrex>
+              Read the story
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <!-- Progetto 2: Rindler & Unruh Effect -->
+        <a href="#project-rindler" data-modal="rindler" class="pcard card reveal" style="--c: var(--cyan); transition-delay:80ms" data-astro-cid-y2vllrex>
+          <div class="art photo" data-astro-cid-y2vllrex>
+            <img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=800&q=80" alt="Rindler Wedges & Accelerated Observers" loading="lazy" data-astro-cid-y2vllrex>
+            <small data-astro-cid-y2vllrex>Rindler Wedges · Covariant Point-Splitting</small>
+          </div>
+          <div class="inner" data-astro-cid-y2vllrex>
+            <div class="years" data-astro-cid-y2vllrex>2023 – 2024</div>
+            <h3 data-astro-cid-y2vllrex>Unruh effect & symmetry restoration</h3>
+            <p data-astro-cid-y2vllrex>Frame-independent covariant point-splitting renormalization of the one-loop λφ⁴ effective potential for accelerated observers</p>
+            <div class="facs" data-astro-cid-y2vllrex>
+              <span class="chip" data-astro-cid-y2vllrex>JHEP</span>
+              <span class="chip" data-astro-cid-y2vllrex>INFN Trieste</span>
+              <span class="chip" data-astro-cid-y2vllrex>Keio University</span>
+              <span class="chip" data-astro-cid-y2vllrex>UniTo / IFPU</span>
+            </div>
+            <span class="read" data-astro-cid-y2vllrex>
+              Read the story
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <!-- Progetto 3: Non-Relativistic & Perturbative Casimir Effect -->
+        <a href="#project-casimir" data-modal="casimir" class="pcard card reveal" style="--c: var(--amber); transition-delay:160ms" data-astro-cid-y2vllrex>
+          <div class="art photo" data-astro-cid-y2vllrex>
+            <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80" alt="Quantum Vacuum Fluctuations in Cold-Atom Rings" loading="lazy" data-astro-cid-y2vllrex>
+            <small data-astro-cid-y2vllrex>Nonlinear Schrödinger QFT · Ultracold Atoms</small>
+          </div>
+          <div class="inner" data-astro-cid-y2vllrex>
+            <div class="years" data-astro-cid-y2vllrex>2022 – 2026</div>
+            <h3 data-astro-cid-y2vllrex>Non-relativistic & perturbative Casimir effect</h3>
+            <p data-astro-cid-y2vllrex>Non-perturbative vacuum forces in rotating BEC rings via Jacobi elliptic functions & distributional recovery of relativistic Casimir energy</p>
+            <div class="facs" data-astro-cid-y2vllrex>
+              <span class="chip" data-astro-cid-y2vllrex>Phys. Rev. D Letter</span>
+              <span class="chip" data-astro-cid-y2vllrex>Keio University</span>
+              <span class="chip" data-astro-cid-y2vllrex>Univ. of Queensland</span>
+            </div>
+            <span class="read" data-astro-cid-y2vllrex>
+              Read the story
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
+            </span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SEZIONE PUBBLICAZIONI E NEWS LATERALI (Layout identico all'originale)
+         ===================================================================== -->
+    <section class="section container split" id="publications" data-astro-cid-lcdefpme>
+      <div data-astro-cid-lcdefpme>
+        <div class="section-title" data-astro-cid-lcdefpme>
+          <div data-astro-cid-lcdefpme>
+            <span class="eyebrow" data-astro-cid-lcdefpme>Publications</span>
+            <h2 data-astro-cid-lcdefpme>Selected papers & preprints</h2>
+          </div>
+          <a class="more" href="https://arxiv.org/search/?searchtype=author&query=Pasini%2C+M" target="_blank" rel="noopener" data-astro-cid-lcdefpme>
+            arXiv profile
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
+          </a>
+        </div>
+
+        <div class="reveal" data-astro-cid-lcdefpme>
+          <article class="pub compact" data-astro-cid-fop4rpo4>
+            <div class="year" data-astro-cid-fop4rpo4>2026</div>
+            <div class="body" data-astro-cid-fop4rpo4>
+              <a class="title" href="#project-lqg" data-modal="lqg" data-astro-cid-fop4rpo4>
+                Scalar Vacuum Polarization in Loop Quantum Gravity Black Holes
+              </a>
+              <div class="authors" data-astro-cid-fop4rpo4>A. Flachi, <strong>M. Pasini</strong></div>
+              <div class="meta" data-astro-cid-fop4rpo4>
+                <em data-astro-cid-fop4rpo4>Preprint (2026) · Zenodo Dataset 20983480</em>
+                <span class="tag first" data-astro-cid-fop4rpo4>Preprint</span>
+              </div>
+            </div>
+            <a class="go" href="#project-lqg" data-modal="lqg" aria-label="Open details" data-astro-cid-fop4rpo4>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>
+            </a>
+          </article>
+
+          <article class="pub compact" data-astro-cid-fop4rpo4>
+            <div class="year" data-astro-cid-fop4rpo4>2026</div>
+            <div class="body" data-astro-cid-fop4rpo4>
+              <a class="title" href="#note-casimir" data-modal="note-casimir" data-astro-cid-fop4rpo4>
+                Casimir Effect through a Perturbative Approach
+              </a>
+              <div class="authors" data-astro-cid-fop4rpo4><strong>M. Pasini</strong>, A. Flachi</div>
+              <div class="meta" data-astro-cid-fop4rpo4>
+                <em data-astro-cid-fop4rpo4>Research Manuscript in Mathematical Physics (Jan 2026)</em>
+                <span class="tag first" data-astro-cid-fop4rpo4>First author</span>
+              </div>
+            </div>
+            <a class="go" href="#note-casimir" data-modal="note-casimir" aria-label="Open details" data-astro-cid-fop4rpo4>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>
+            </a>
+          </article>
+
+          <article class="pub compact" data-astro-cid-fop4rpo4>
+            <div class="year" data-astro-cid-fop4rpo4>2024</div>
+            <div class="body" data-astro-cid-fop4rpo4>
+              <a class="title" href="https://doi.org/10.1007/JHEP05(2024)218" target="_blank" rel="noopener" data-astro-cid-fop4rpo4>
+                Symmetry restoration and uniformly accelerated observers in Minkowski spacetime
+              </a>
+              <div class="authors" data-astro-cid-fop4rpo4>D. G. Salluce, <strong>M. Pasini</strong>, A. Flachi, A. Pittelli, S. Ansoldi</div>
+              <div class="meta" data-astro-cid-fop4rpo4>
+                <em data-astro-cid-fop4rpo4>Journal of High Energy Physics (JHEP) 05 (2024), 218 · arXiv:2401.16483</em>
+                <span class="tag first" data-astro-cid-fop4rpo4>JHEP</span>
+              </div>
+            </div>
+            <a class="go" href="https://doi.org/10.1007/JHEP05(2024)218" target="_blank" rel="noopener" aria-label="Open DOI" data-astro-cid-fop4rpo4>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>
+            </a>
+          </article>
+
+          <article class="pub compact" data-astro-cid-fop4rpo4>
+            <div class="year" data-astro-cid-fop4rpo4>2023</div>
+            <div class="body" data-astro-cid-fop4rpo4>
+              <a class="title" href="https://doi.org/10.1103/PhysRevD.108.L121702" target="_blank" rel="noopener" data-astro-cid-fop4rpo4>
+                Quantum vacuum effects in nonrelativistic quantum field theory
+              </a>
+              <div class="authors" data-astro-cid-fop4rpo4>M. Edmonds, A. Flachi, <strong>M. Pasini</strong></div>
+              <div class="meta" data-astro-cid-fop4rpo4>
+                <em data-astro-cid-fop4rpo4>Physical Review D 108 (2023), L121702 · arXiv:2309.07454</em>
+                <span class="tag first" data-astro-cid-fop4rpo4>Phys. Rev. D Letter</span>
+              </div>
+            </div>
+            <a class="go" href="https://doi.org/10.1103/PhysRevD.108.L121702" target="_blank" rel="noopener" aria-label="Open DOI" data-astro-cid-fop4rpo4>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>
+            </a>
+          </article>
+        </div>
+      </div>
+
+      <!-- Colonna laterale News -->
+      <aside class="news card reveal" id="news" data-astro-cid-lcdefpme>
+        <span class="eyebrow" data-astro-cid-lcdefpme>News</span>
+        <ul data-astro-cid-lcdefpme>
+          <li data-astro-cid-lcdefpme>
+            <span class="d" data-astro-cid-lcdefpme>2026</span>
+            <span data-astro-cid-lcdefpme>First numerical computation of scalar vacuum polarization ⟨φ²⟩ exterior to Loop Quantum Gravity black holes completed with A. Flachi.</span>
+          </li>
+          <li data-astro-cid-lcdefpme>
+            <span class="d" data-astro-cid-lcdefpme>2026</span>
+            <span data-astro-cid-lcdefpme>Proved exact equivalence between full perturbative expansion and non-perturbative 1+1D relativistic Casimir energy using pseudo-differential operators and tempered distributions.</span>
+          </li>
+          <li data-astro-cid-lcdefpme>
+            <span class="d" data-astro-cid-lcdefpme>2025</span>
+            <span data-astro-cid-lcdefpme>Awarded Ph.D. in Physics at the University of Udine.</span>
+          </li>
+          <li data-astro-cid-lcdefpme>
+            <span class="d" data-astro-cid-lcdefpme>2024</span>
+            <span data-astro-cid-lcdefpme>Symmetry restoration and uniformly accelerated observers in Minkowski spacetime published in JHEP.</span>
+          </li>
+          <li data-astro-cid-lcdefpme>
+            <span class="d" data-astro-cid-lcdefpme>2023</span>
+            <span data-astro-cid-lcdefpme>Quantum vacuum effects in non-relativistic QFT published as a Letter in Physical Review D; Visiting Researcher at Keio University (Yokohama, Japan).</span>
+          </li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- =====================================================================
+         SEZIONE NOTE DI FISICA MATEMATICA (#notes)
+         ===================================================================== -->
+    <section class="section container" id="notes">
+      <div class="section-title">
+        <div>
+          <span class="eyebrow">Mathematical Physics Notes</span>
+          <h2>Analytical derivations & technical notes</h2>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <!-- Nota 1: Phi^2 in Generic Spherically Symmetric Spacetime -->
+        <a href="#note-phi2" data-modal="note-phi2" class="pcard card reveal" style="--c: var(--violet); transition-delay:0ms">
+          <div class="inner">
+            <div class="years">47-page Technical Monograph</div>
+            <h3>⟨φ²⟩ in Generic Spherically Symmetric Spacetimes</h3>
+            <p>
+              Complete WKB mode-sum regularization for ds² = −f(r)dt² + h(r)dr² + r²dΩ². Derives the asymptotic p-fixing rule, double Mellin–Barnes contour reduction of generalized ζ(s,q,r), Abel–Plana analytic continuation of Hurwitz ζ<sub>HM</sub>, and exact cancellation of ln(R) terms to satisfy Wald's criteria and recover Christensen's counter-terms G<sub>CT</sub>.
+            </p>
+            <div class="math-formula">
+              p = max{ 2 + α/2, 1 + (α − β)/2 } · G<sub>E</sub><sup>div</sup> → G<sub>CT</sub>
+            </div>
+            <div class="facs">
+              <span class="chip">WKB Asymptotics</span>
+              <span class="chip">Mellin–Barnes</span>
+              <span class="chip">Abel–Plana</span>
+              <span class="chip">Point-Splitting</span>
+            </div>
+            <span class="read">
+              Inspect derivation
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <!-- Nota 2: Bessel Functions of Imaginary Order -->
+        <a href="#note-bessel" data-modal="note-bessel" class="pcard card reveal" style="--c: var(--cyan); transition-delay:80ms">
+          <div class="inner">
+            <div class="years">Spectral Theory & Special Functions</div>
+            <h3>Orthogonality of Bessel Functions of Imaginary Order</h3>
+            <p>
+              Constructs self-adjoint bases and Dirac-delta orthogonality relations on (0, ∞) with weight 1/x for Bessel functions J<sub>iΩ</sub>(x), Y<sub>iΩ</sub>(x), K<sub>iΩ</sub>(x), and I<sub>iΩ</sub>(x) of purely imaginary order ν = iΩ. Resolves the −Ω² eigenvalue degeneracy of J<sub>±iΩ</sub> via symmetric real combinations.
+            </p>
+            <div class="math-formula">
+              ∫₀^∞ dx F<sub>iΩ</sub>(x) F<sub>iΩ'</sub>(x) / x = [sinh(πΩ)/(2Ω)] δ(Ω − Ω')
+            </div>
+            <div class="facs">
+              <span class="chip">Bessel J<sub>iΩ</sub>, Y<sub>iΩ</sub>, K<sub>iΩ</sub></span>
+              <span class="chip">Sturm–Liouville</span>
+              <span class="chip">Rindler Modes</span>
+            </div>
+            <span class="read">
+              Inspect derivation
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <!-- Nota 3: Perturbative Casimir Effect -->
+        <a href="#note-casimir" data-modal="note-casimir" class="pcard card reveal" style="--c: var(--amber); transition-delay:160ms">
+          <div class="inner">
+            <div class="years">Quantum Vacuum Regularization</div>
+            <h3>Relativistic Casimir Energy from a Perturbative Expansion</h3>
+            <p>
+              Resolves the long-standing puzzle whereby term-by-term ζ-regularization of the non-relativistic binomial expansion ω = m ∑ (1/2 choose k)(k<sub>n</sub>/m)<sup>2k</sup> misses exponentially small Bessel contributions. Uses Jacobi θ₃ modular inversion, parabolic cylinder functions D<sub>2k</sub>, and distributional Fourier analysis on Schwartz space S'(ℝ).
+            </p>
+            <div class="math-formula">
+              E<sub>vac</sub> = −m/4 − (m/2π) ∑<sub>n=1</sub>^∞ K₁(2mLn)/n
+            </div>
+            <div class="facs">
+              <span class="chip">Jacobi θ₃ Modularity</span>
+              <span class="chip">Hermite H<sub>2k</sub></span>
+              <span class="chip">Schwartz Distributions</span>
+            </div>
+            <span class="read">
+              Inspect derivation
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
+            </span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SEZIONE CURRICULUM VITAE (#cv)
+         ===================================================================== -->
+    <section class="section container" id="cv">
+      <div class="section-title">
+        <div>
+          <span class="eyebrow">Curriculum Vitae</span>
+          <h2>Education, research & teaching</h2>
+        </div>
+        <a class="more" href="mailto:marco.pasini.94@gmail.com">
+          Request full PDF CV
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
+        </a>
+      </div>
+
+      <div class="cv-grid">
+        <!-- Esperienza di Ricerca & Didattica -->
+        <div class="card cv-box reveal">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Research & Teaching Experience
+          </h3>
+
+          <div class="timeline-item">
+            <div class="t-yr">2025 – Present</div>
+            <div>
+              <div class="t-role">Independent Researcher in Mathematical Physics</div>
+              <div class="t-place">Udine / Pordenone, Italy & Keio University Collaboration</div>
+              <div class="t-desc">Developing high-precision WKB/Runge–Kutta numerical implementations for scalar vacuum polarization in quantum-corrected black holes and analytical resummation schemes for quantum vacuum effects.</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="t-yr">2021 – 2025</div>
+            <div>
+              <div class="t-role">Ph.D. Researcher in Theoretical Physics</div>
+              <div class="t-place">University of Udine · Dept. of Mathematics, Computer Science, and Physics</div>
+              <div class="t-desc">Formulated and analyzed QFT models in curved/Rindler spacetimes and nonlinear BEC systems. Developed Python, Mathematica, and Fortran codes to solve singular ODEs, evaluate spectral sums, and validate numerical convergence against analytical WKB and DeWitt–Schwinger limits.</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="t-yr">2023</div>
+            <div>
+              <div class="t-role">Visiting Researcher (3 months)</div>
+              <div class="t-place">Keio University · RECNS, Yokohama, Japan</div>
+              <div class="t-desc">International research collaboration with Prof. Antonino Flachi's group on non-relativistic quantum vacuum forces and accelerated observers.</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="t-yr">2022 – 2024</div>
+            <div>
+              <div class="t-role">Teaching Assistant</div>
+              <div class="t-place">University of Udine</div>
+              <div class="t-desc">Co-instructed <em>Calculus 2</em> and <em>Advanced General Physics</em> for undergraduate mathematics and physics students, leading problem-solving tutorials and mentoring sessions.</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="t-yr">2016</div>
+            <div>
+              <div class="t-role">Research Intern — Optics & Laser Instrumentation</div>
+              <div class="t-place">Elettra-Sincrotrone Trieste · T-ReX Laboratory</div>
+              <div class="t-desc">Contributed to experimental ultrafast laser setups, precision optical hardware instrumentation, physical measurements, and data collection.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formazione & Competenze Tecniche -->
+        <div class="card cv-box reveal">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            Education & Core Technical Stack
+          </h3>
+
+          <div class="timeline-item">
+            <div class="t-yr">2025</div>
+            <div>
+              <div class="t-role">Ph.D. in Physics</div>
+              <div class="t-place">University of Udine, Italy</div>
+              <div class="t-desc">Quantum Field Theory in Curved Spacetime, Hawking–Unruh Effect, and Non-Relativistic Quantum Vacuum Phenomena.</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="t-yr">2019</div>
+            <div>
+              <div class="t-role">M.Sc. in Theoretical Physics — 110/110 cum laude</div>
+              <div class="t-place">University of Trieste, Italy</div>
+              <div class="t-desc">Graduated with highest honors; advanced training in quantum field theory, general relativity, statistical mechanics, and mathematical methods.</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="t-yr">2016</div>
+            <div>
+              <div class="t-role">B.Sc. in Physics</div>
+              <div class="t-place">University of Trieste, Italy</div>
+              <div class="t-desc">Experimental thesis and internship at Elettra-Sincrotrone Trieste (T-ReX Lab).</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="t-yr">Core Stack</div>
+            <div>
+              <div class="t-role">Mathematical & Computational Physics</div>
+              <div class="t-desc">
+                <div class="facs" style="margin-top:6px">
+                  <span class="chip">Python (NumPy, SciPy, SymPy, Matplotlib, Pandas)</span>
+                  <span class="chip">Wolfram Mathematica</span>
+                  <span class="chip">Fortran</span>
+                  <span class="chip">C++</span>
+                  <span class="chip">LaTeX & Gnuplot</span>
+                  <span class="chip">Linux / Windows</span>
+                  <span class="chip">ODE/PDE Solvers & Quadrature</span>
+                  <span class="chip">Asymptotic & WKB Methods</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="t-yr">Languages</div>
+            <div>
+              <div class="t-role">Communication</div>
+              <div class="t-desc">Italian (Native) · English (Fluent — C1, international publications & conferences) · Spanish (Basic).</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SEZIONE TRAVELS & INTERESTS (#travels & #interests)
+         ===================================================================== -->
+    <section class="section container split" id="travels">
+      <div class="card cv-box reveal">
+        <span class="eyebrow">Travels & International Collaborations</span>
+        <h3 style="margin-top:4px">From Friuli & Trieste to Yokohama and Europe</h3>
+        <div class="timeline-item">
+          <div class="t-yr">Yokohama, JP</div>
+          <div>
+            <div class="t-role">Keio University (Hiyoshi Campus)</div>
+            <div class="t-desc">Three-month visiting research stay at the Research and Education Center for Natural Sciences (RECNS) in Yokohama, collaborating on quantum vacuum phenomena and curved-spacetime QFT.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="t-yr">Conferences</div>
+          <div>
+            <div class="t-role">France · Portugal · Spain · Italy</div>
+            <div class="t-desc">Presented research findings on symmetry restoration in Rindler spacetime, non-relativistic Casimir forces, and quantum black holes at international theoretical physics conferences across Europe.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card cv-box reveal" id="interests">
+        <span class="eyebrow">Interests & Leadership</span>
+        <h3 style="margin-top:4px">Alpine Skiing — FISI Level 2 Coach & Instructor</h3>
+        <div class="timeline-item">
+          <div class="t-yr">2018 – 2021</div>
+          <div>
+            <div class="t-role">Alpine Ski Coach — Level 2 STF (FISI)</div>
+            <div class="t-place">Sci Club Pordenone</div>
+            <div class="t-desc">Managed competitive alpine ski teams of 15–20 athletes, defined seasonal performance targets, designed athletic and technical training regimens, and coordinated race logistics.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="t-yr">2013 – Present</div>
+          <div>
+            <div class="t-role">National Alpine Ski Instructor (Maestro di Sci)</div>
+            <div class="t-place">Sci Club Pordenone · FISI Certified</div>
+            <div class="t-desc">Certifications: FISI Alpine Ski Coach Level 2 (2021), Level 1 (2020), and National Alpine Ski Instructor (2013).</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         FINESTRA MODALE INTERATTIVA PER LEGGERE I DETTAGLI DEI PROGETTI E NOTE
+         ===================================================================== -->
+    <div class="modal-backdrop" id="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-card">
+        <button class="modal-close" id="modal-close" aria-label="Close modal">✕</button>
+        <div id="modal-content"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- =====================================================================
+       FOOTER DEL SITO
+       ===================================================================== -->
+  <footer class="site-footer" id="contact" data-astro-cid-hkbrpulz>
+    <div class="container foot" data-astro-cid-hkbrpulz>
+      <div data-astro-cid-hkbrpulz>
+        <div class="foot-name" data-astro-cid-hkbrpulz>Dr. Marco Pasini</div>
+        <div class="foot-sub" data-astro-cid-hkbrpulz>Ph.D. in Theoretical Physics · University of Udine & Keio University Collaborator · Pordenone, Italy</div>
+      </div>
+      <div class="foot-links" data-astro-cid-hkbrpulz>
+        <a href="https://github.com/" aria-label="GitHub" target="_blank" rel="noopener" data-astro-cid-hkbrpulz>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+        </a>
+        <a href="https://arxiv.org/search/?searchtype=author&query=Pasini%2C+M" aria-label="arXiv" target="_blank" rel="noopener" data-astro-cid-hkbrpulz>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8.5 8v8M12 8h2a4 4 0 0 1 0 8h-2z"/><circle cx="8.5" cy="5.6" r=".6" fill="currentColor"/></svg>
+        </a>
+        <a href="https://inspirehep.net/authors?q=Marco%20Pasini" aria-label="INSPIRE-HEP" target="_blank" rel="noopener" data-astro-cid-hkbrpulz>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 9l10 6 10-6-10-6Z"/><path d="M6 11.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5"/></svg>
+        </a>
+        <a href="mailto:marco.pasini.94@gmail.com" aria-label="Email" data-astro-cid-hkbrpulz>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="container copy" data-astro-cid-hkbrpulz>
+      © 2026 Marco Pasini · Hosted on GitHub Pages
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       JAVASCRIPT: Tema, Menu, Sfondo Casuale, Modali e Fisica 2D delle Sfere
+       ===================================================================== -->
+  <script>
+    // 1. Gestione Tema Chiaro / Scuro
+    const rootEl = document.documentElement;
+    document.getElementById('theme')?.addEventListener('click', () => {
+      const nextTheme = rootEl.dataset.theme === 'dark' ? 'light' : 'dark';
+      rootEl.dataset.theme = nextTheme;
+      try { localStorage.setItem('theme', nextTheme); } catch {}
+    });
+
+    // 2. Menu Hamburger su Mobile
+    const menuBtn = document.getElementById('menu');
+    menuBtn?.addEventListener('click', () => {
+      const isOpen = document.body.classList.toggle('nav-open');
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+    document.querySelectorAll('#nav a').forEach(link => {
+      link.addEventListener('click', () => document.body.classList.remove('nav-open'));
+    });
+
+    // 3. Animazione di comparsa allo scorrimento (IntersectionObserver)
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          observer.unobserve(entry.target);
+        }
+      }
+    }, { rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // 4. Caricamento casuale dello sfondo fotografico nella Hero
+    const heroEl = document.querySelector('.hero');
+    const bgList = JSON.parse(heroEl?.dataset.bg || '[]');
+    if (bgList.length && heroEl) {
+      const chosen = bgList[Math.floor(Math.random() * bgList.length)];
+      const img = new Image();
+      img.onload = () => {
+        const bgDiv = heroEl.querySelector('.bg');
+        if (bgDiv) {
+          bgDiv.style.backgroundImage = `url("${img.src}")`;
+          bgDiv.classList.add('on');
+        }
+      };
+      img.src = chosen.src;
+      const creditEl = heroEl.querySelector('.credit');
+      if (creditEl) {
+        creditEl.textContent = [chosen.title, chosen.artist].filter(Boolean).join(' · ');
+      }
+    }
+
+    // 5. Switch "Feeling Cringe?" + Motore Fisico 2D per le sfere lanciabili
+    const cringeInput = document.querySelector('.cringe input');
+    const stageEl = document.querySelector('.stage');
+    const ballEls = Array.from(document.querySelectorAll('.stage .ball'));
+    let animId = null;
+    let bodies = [];
+
+    function initPhysics() {
+      if (!stageEl) return;
+      const rect = stageEl.getBoundingClientRect();
+      const W = rect.width || window.innerWidth;
+      const H = rect.height || (window.innerHeight - 64);
+
+      bodies = ballEls.map((el, i) => {
+        const scale = parseFloat(el.dataset.s || '1');
+        const radius = 55 * scale;
+        el.style.width = `${radius * 2}px`;
+        el.style.height = `${radius * 2}px`;
+        return {
+          el,
+          r: radius,
+          x: (W * 0.2) + ((i * 115) % (W * 0.65)),
+          y: 80 + (i * 45) % (H * 0.45),
+          vx: (Math.random() - 0.5) * 6,
+          vy: (Math.random() - 0.5) * 4,
+          dragging: false,
+          dragMoved: false,
+          lastX: 0,
+          lastY: 0
+        };
+      });
+
+      ballEls.forEach((el, idx) => {
+        const b = bodies[idx];
+        el.onpointerdown = (ev) => {
+          ev.preventDefault();
+          b.dragging = true;
+          b.dragMoved = false;
+          b.vx = 0;
+          b.vy = 0;
+          b.lastX = ev.clientX;
+          b.lastY = ev.clientY;
+          el.setPointerCapture(ev.pointerId);
+        };
+        el.onpointermove = (ev) => {
+          if (!b.dragging) return;
+          const dx = ev.clientX - b.lastX;
+          const dy = ev.clientY - b.lastY;
+          if (Math.abs(dx) > 3 || Math.abs(dy) > 3) b.dragMoved = true;
+          b.x += dx;
+          b.y += dy;
+          b.vx = dx * 0.85;
+          b.vy = dy * 0.85;
+          b.lastX = ev.clientX;
+          b.lastY = ev.clientY;
+        };
+        el.onpointerup = (ev) => {
+          if (!b.dragging) return;
+          b.dragging = false;
+          el.releasePointerCapture(ev.pointerId);
+          if (!b.dragMoved) {
+            const target = el.getAttribute('href');
+            if (target && target.startsWith('#')) {
+              document.querySelector(target)?.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        };
+        el.onclick = (ev) => ev.preventDefault();
+      });
+    }
+
+    function stepPhysics() {
+      if (rootEl.dataset.cringe !== 'on') {
+        animId = null;
+        return;
+      }
+      const rect = stageEl.getBoundingClientRect();
+      const W = rect.width;
+      const H = rect.height;
+      const gravity = 0.22;
+      const bounce = 0.78;
+      const friction = 0.994;
+
+      for (let i = 0; i < bodies.length; i++) {
+        const b = bodies[i];
+        if (!b.dragging) {
+          b.vy += gravity;
+          b.vx *= friction;
+          b.vy *= friction;
+          b.x += b.vx;
+          b.y += b.vy;
+
+          if (b.x - b.r < 0) { b.x = b.r; b.vx = Math.abs(b.vx) * bounce; }
+          if (b.x + b.r > W) { b.x = W - b.r; b.vx = -Math.abs(b.vx) * bounce; }
+          if (b.y - b.r < 0) { b.y = b.r; b.vy = Math.abs(b.vy) * bounce; }
+          if (b.y + b.r > H) {
+            b.y = H - b.r;
+            b.vy = -Math.abs(b.vy) * bounce;
+            if (Math.abs(b.vy) < 1.2) b.vy = 0;
+          }
+        }
+
+        // Collisioni tra sfere
+        for (let j = i + 1; j < bodies.length; j++) {
+          const b2 = bodies[j];
+          const dx = b2.x - b.x;
+          const dy = b2.y - b.y;
+          const dist = Math.hypot(dx, dy);
+          const minDist = b.r + b2.r;
+          if (dist > 0 && dist < minDist) {
+            const nx = dx / dist;
+            const ny = dy / dist;
+            const overlap = (minDist - dist) * 0.5;
+            if (!b.dragging) { b.x -= nx * overlap; b.y -= ny * overlap; }
+            if (!b2.dragging) { b2.x += nx * overlap; b2.y += ny * overlap; }
+            const kx = b.vx - b2.vx;
+            const ky = b.vy - b2.vy;
+            const p = 2 * (nx * kx + ny * ky) / 2;
+            if (!b.dragging) { b.vx -= p * nx * bounce; b.vy -= p * ny * bounce; }
+            if (!b2.dragging) { b2.vx += p * nx * bounce; b2.vy += p * ny * bounce; }
+          }
+        }
+
+        b.el.style.transform = `translate3d(${b.x - b.r}px, ${b.y - b.r}px, 0)`;
+      }
+
+      animId = requestAnimationFrame(stepPhysics);
+    }
+
+    function syncCringeState() {
+      const isOn = rootEl.dataset.cringe === 'on';
+      if (cringeInput) cringeInput.checked = isOn;
+      if (isOn) {
+        initPhysics();
+        if (!animId) animId = requestAnimationFrame(stepPhysics);
+      } else if (animId) {
+        cancelAnimationFrame(animId);
+        animId = null;
+      }
+    }
+
+    cringeInput?.addEventListener('change', () => {
+      const active = cringeInput.checked;
+      if (active) {
+        rootEl.dataset.cringe = 'on';
+      } else {
+        delete rootEl.dataset.cringe;
+      }
+      try { localStorage.setItem('cringe', active ? 'on' : 'off'); } catch {}
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      syncCringeState();
+    });
+
+    window.addEventListener('resize', () => {
+      if (rootEl.dataset.cringe === 'on') initPhysics();
+    });
+
+    syncCringeState();
+
+    // 6. Contenuti Dettagliati per le Finestre Modali (Progetti e Note Matematiche)
+    const modalData = {
+      "lqg": {
+        eyebrow: "Research Project · 2025–2026",
+        title: "Scalar Vacuum Polarization in Loop Quantum Gravity Black Holes",
+        body: `
+          <p><strong>Authors:</strong> Antonino Flachi (Keio University) &amp; Marco Pasini (University of Udine)</p>
+          <p>A macroscopic "Kruskal" black hole solution incorporating quantum geometry effects in Loop Quantum Gravity (Ashtekar–Olmedo–Singh) replaces the classical Schwarzschild singularity while leaving a quantum imprint outside the event horizon parameterized by ε ≈ (γ²Δ / 16πM²)<sup>1/3</sup>. The exterior geometry is sustained by a negative effective quantum energy density ρ = −(ε / 8πr²)(r<sub>s</sub>/r)<sup>1+ε</sup> that prevents asymptotic flatness.</p>
+          <p>In this work we adapt the extended <strong>Anderson–Candelas–Christensen–DeWitt (CCDeW)</strong> mode-sum formalism to compute, for the first time, the renormalized scalar vacuum polarization ⟨φ²⟩ exterior to this quantum-corrected black hole:</p>
+          <div class="math-formula">⟨φ²⟩ = (α / 8π²) [ Y₀ + Σ₁ + Σ₂ − Δ + Θ ]</div>
+          <p>Using a high-performance 4th-order Runge–Kutta solver in Eddington–Finkelstein coordinates coupled with next-to-leading order WKB subtraction and Chowla–Selberg/Bessel representations of Epstein–Hurwitz ζ-functions, we achieve a relative numerical noise floor below 0.1%. We show that:</p>
+          <p>• The LQG parameter ε enhances near-horizon vacuum polarization while heavier field masses μ = mM and conformal coupling ξ = 1/6 suppress it.<br>
+          • Beyond r/r<sub>s</sub> ≈ 3.5 (for ξ ≠ 1/6), ⟨φ²⟩ develops a genuine negative tail that matches within ~10% the parameter-free DeWitt–Schwinger prediction ⟨φ²⟩<sub>DS</sub> ≃ [a₂]/(16π²m²) driven by the nonzero Ricci scalar R &lt; 0.<br>
+          • For astrophysical black holes (ε ≪ 1), the deviation from Schwarzschild scales linearly as O(ε), confirming the absence of anomalous exterior vacuum fluctuations.</p>
+        `
+      },
+      "rindler": {
+        eyebrow: "Published in JHEP 05 (2024), 218",
+        title: "Symmetry Restoration and Uniformly Accelerated Observers in Minkowski Spacetime",
+        body: `
+          <p><strong>Authors:</strong> D. G. Salluce, M. Pasini, A. Flachi, A. Pittelli, S. Ansoldi</p>
+          <p>Does a uniformly accelerated Rindler observer—who perceives the Minkowski vacuum as a thermal bath at the Unruh temperature T<sub>U</sub> = a / (2π)—observe the restoration of a spontaneously broken Z₂ symmetry in an interacting λφ⁴ scalar field theory above a critical acceleration?</p>
+          <p>While the Green's function invariance theorem of Unruh and Weiss (1984) rules out phase transitions induced solely by coordinate acceleration, several effective-potential calculations in the literature claimed symmetry restoration. We resolve this controversy by computing the one-loop effective potential V<sup>R</sup>(φ₀) in Rindler coordinates via canonical quantization in analytic A/B modes and examining two distinct renormalization schemes using <strong>covariant geodesic point-splitting</strong>:</p>
+          <div class="math-formula">δm²<sub>I</sub> = δm²<sub>II</sub> + λ / (96π²ρ²) · ∂V<sup>R</sup>/∂φ₀² |<sub>φ₀=0</sub> = m²<sub>R,II</sub> / 2 &lt; 0</div>
+          <p>We demonstrate that subtracting the Rindler vacuum (Scheme I) introduces a frame-dependent counter-term proportional to 1/ρ² = a² that hides an acceleration dependence inside the renormalized mass m²<sub>R,I</sub>(ρ). When a covariant, frame-independent renormalization scheme referred to the Minkowski vacuum (Scheme II, matching Christensen's curved-spacetime counter-terms in flat space) is enforced, the thermal Unruh term cancels identically against the counter-term, proving that spontaneous symmetry breaking is never restored by uniform acceleration alone.</p>
+        `
+      },
+      "casimir": {
+        eyebrow: "Published in Physical Review D 108 (2023), L121702 (Letter)",
+        title: "Quantum Vacuum Effects in Non-Relativistic Quantum Field Theory",
+        body: `
+          <p><strong>Authors:</strong> Matthew Edmonds, Antonino Flachi, Marco Pasini</p>
+          <p>We investigate the quantum vacuum energy of an interacting, rotating 1D non-relativistic Bose gas described by a complex nonlinear Schrödinger quantum field theory with quartic self-interaction λ on a ring of radius R with a Dirichlet barrier.</p>
+          <p>Exploiting the exact integrability of the nonlinear Schrödinger equation in the co-rotating frame, we solve the normal-mode equations non-perturbatively in terms of <strong>Jacobi elliptic sn functions</strong> and complete elliptic integrals K(k<sub>n</sub>) and E(k<sub>n</sub>):</p>
+          <div class="math-formula">Φ(t,φ) = A<sub>n</sub> e<sup>−iω<sub>n</sub>t</sup> e<sup>−i(mR²Ωφ − π/4)</sup> sn(q<sub>n</sub>φ, k<sub>n</sub>)</div>
+          <p>Combining spectral asymptotics with Chowla–Selberg ζ-regularization and a physical high-frequency cutoff via Jacobi θ₃ modular functions, we derive the laboratory-frame quantum vacuum energy E<sub>s</sub> and force F<sub>s</sub> = −∂E<sub>s</sub>/∂R:</p>
+          <div class="math-formula">F<sub>s</sub> ≈ −3λ / (32πR²) + mRΩ² / 4  ⇒  R<sub>crit</sub> ≈ [ 3λ / (8πmΩ²) ]<sup>1/3</sup></div>
+          <p>The competition between the attractive Casimir-like interaction term (−3λ/32πR²) and the repulsive centrifugal contribution (+mRΩ²/4) produces a critical ring radius R<sub>crit</sub> where the quantum vacuum force changes sign—a phenomenon directly testable in ultracold <sup>23</sup>Na and <sup>87</sup>Rb Bose–Einstein condensate ring traps.</p>
+        `
+      },
+      "note-phi2": {
+        eyebrow: "Mathematical Physics Monograph · 47 Pages",
+        title: "⟨φ²⟩ Calculations in a Generic Spherically Symmetric Spacetime",
+        body: `
+          <p>This comprehensive technical note develops the general analytical and numerical machinery for computing the renormalized Euclidean Green's function coincidence limit G<sub>E</sub>(X,X) = ⟨φ²⟩ in any static, spherically symmetric spacetime ds² = −f(r)dt² + h(r)dr² + r²dΩ²:</p>
+          <p><strong>1. Asymptotic WKB p-Fixing Rule:</strong> Using the ansatz φ(x) = x<sup>−p/2</sup> W(x)<sup>−1/2</sup> exp(±∫ W(x') x'<sup>p−2</sup> √(h/f) dx'), the requirement that the leading classical potential Φ(x) remains O(x⁰) as x → ∞ so that Ψ/Φ<sup>3/2</sup> ≪ Φ<sup>−1/2</sup> yields the universal exponent rule for f(x) ~ x<sup>α</sup>, h(x) ~ x<sup>β</sup>:</p>
+          <div class="math-formula">p = max{ 2 + α/2, 1 + (α − β)/2 }</div>
+          <p><strong>2. Double Mellin–Barnes &amp; Abel–Plana Resummation:</strong> The next-to-leading WKB double sums are expressed in terms of generalized Zeta functions ζ(s,q,r) decoupled via Mellin–Barnes contour integrals in ℂ² and resummed into modified Hurwitz functions ζ<sub>HM</sub>(s,q;A). Using an indented Abel–Plana contour around the branch points/poles z = ±iA with Kantorovich subtraction and the nonlinear coordinate mapping y = A − u², all fractional boundary singularities are eliminated to yield exponentially convergent Gauss–Legendre and Gauss–Laguerre quadratures.</p>
+          <p><strong>3. Wald's Criteria &amp; Christensen Counter-Terms:</strong> Demonstrates how expanding the point-splitting regularized divergence G<sub>E</sub><sup>div</sup> in the large-mass DeWitt–Schwinger limit cancels all p-dependent artifacts and non-analytic ln(R) terms, recovering the exact polynomial Christensen counter-terms G<sub>CT</sub>.</p>
+        `
+      },
+      "note-bessel": {
+        eyebrow: "Mathematical Physics Technical Note · 7 Pages",
+        title: "Orthogonality Relations of Bessel Functions of Imaginary Order",
+        body: `
+          <p>Wave and quantum field equations in cylindrical or Rindler coordinates (such as the Klein–Gordon modes K<sub>iω/a</sub>(μρ) in accelerated frames) require eigenfunction expansions of Bessel differential operators with purely imaginary order ν = iΩ (Ω ∈ ℝ).</p>
+          <p>Unlike the modified Macdonald function K<sub>iΩ</sub>(x) which is real and symmetric under Ω ↔ −Ω, the Bessel function of the first kind J<sub>iΩ</sub>(x) satisfies J*<sub>iΩ</sub>(x) = J<sub>−iΩ</sub>(x) ≠ J<sub>iΩ</sub>(x). Thus J<sub>iΩ</sub> and J<sub>−iΩ</sub> are degenerate eigenfunctions sharing the eigenvalue −Ω² of the Hermitian operator L₁ = x²d²/dx² + x d/dx + x².</p>
+          <p>By constructing the symmetric real eigenfunction F<sub>iΩ</sub>(x) = ½[J<sub>iΩ</sub>(x) + J<sub>−iΩ</sub>(x)] = Re(J<sub>iΩ</sub>(x)) and evaluating the Wronskian boundary limits at x → ∞ and x → 0⁺ via Gamma-function identities |Γ(1 + iΩ)|² = πΩ / sinh(πΩ), we prove the distributional orthogonality relation on (0, ∞):</p>
+          <div class="math-formula">∫₀^∞ dx [J<sub>iΩ</sub>(x) + J<sub>−iΩ</sub>(x)][J<sub>iΩ'</sub>(x) + J<sub>−iΩ'</sub>(x)] / (4x) = [sinh(πΩ) / (2Ω)] δ(Ω − Ω')  (Ω, Ω' &gt; 0)</div>
+          <p>with normalization constant N<sub>Ω</sub> = √[2Ω / sinh(πΩ)], together with the corresponding relation for Weber functions i[Y<sub>iΩ</sub>(x) − Y<sub>−iΩ</sub>(x)] = tanh(πΩ/2)[J<sub>iΩ</sub>(x) + J<sub>−iΩ</sub>(x)].</p>
+        `
+      },
+      "note-casimir": {
+        eyebrow: "Research Manuscript · January 2026",
+        title: "Casimir Effect through a Perturbative Approach",
+        body: `
+          <p><strong>Authors:</strong> Marco Pasini &amp; Antonino Flachi</p>
+          <p>A well-known argument in the literature (Cougo-Pinto et al., 2001) claims that expanding the relativistic dispersion relation ω = √(m² + k<sub>n</sub>²) = m ∑<sub>k=0</sub>^∞ (1/2 choose k)(k<sub>n</sub>/m)<sup>2k</sup> and applying term-by-term Riemann ζ-regularization yields only E<sub>vac</sub> = −m/4 because ζ(−2k) = 0 for all k ≥ 1, missing the exponentially decaying Bessel sum of the true 1+1D massive Casimir energy.</p>
+          <p>We prove that the full perturbative expansion actually encodes the complete non-perturbative Casimir effect when regularized consistently:</p>
+          <p>1. Introducing the cutoff regulator exp(−ε p²/m²) and applying the Jacobi θ₃ modular transformation θ₃(x) = x<sup>−1/2</sup> θ₃(1/x), the divergent part of E<sub>bound</sub>(ε) cancels E<sub>free</sub>(ε) identically.<br>
+          2. Using Laplace transforms, the remaining k-derivative series is converted into parabolic cylinder functions D<sub>2k</sub> and Hermite polynomials H<sub>2k</sub>, which resum into the infinite-order pseudo-differential operator P(x,D) = √(1 + t d²/dx²) acting on a Gaussian.<br>
+          3. Evaluating the resulting oscillatory integral rigorously via analytic continuation and <strong>distributional Fourier transforms on the Schwartz space S'(ℝ)</strong> (using Whittaker W<sub>μ,ν</sub> identities) yields:</p>
+          <div class="math-formula">E<sub>vac</sub> = −m/4 − (m / 2π) ∑<sub>n=1</sub>^∞ K₁(2mLn) / n</div>
+          <p>recovering the exact relativistic non-perturbative Casimir energy.</p>
+        `
+      }
+    };
+
+    const backdrop = document.getElementById('modal-backdrop');
+    const modalContent = document.getElementById('modal-content');
+    const modalClose = document.getElementById('modal-close');
+
+    document.querySelectorAll('[data-modal]').forEach(trigger => {
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        const key = trigger.getAttribute('data-modal');
+        const item = modalData[key];
+        if (item && modalContent && backdrop) {
+          modalContent.innerHTML = `<span class="eyebrow">${item.eyebrow}</span><h3>${item.title}</h3>${item.body}`;
+          backdrop.classList.add('open');
+          backdrop.setAttribute('aria-hidden', 'false');
+        }
+      });
+    });
+
+    function closeModal() {
+      if (backdrop) {
+        backdrop.classList.remove('open');
+        backdrop.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    modalClose?.addEventListener('click', closeModal);
+    backdrop?.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeModal();
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+</body>
+</html>
